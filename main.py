@@ -1,4 +1,5 @@
 from Tkinter import *
+from panel.py import *
 
 class Application:    
     
@@ -12,6 +13,11 @@ class Application:
         self.panel = Canvas(master, width = 300, height = 700)
         self.panel.pack(side=LEFT)        
         
+        self.draw_panel(self.panel)
+
+    def draw_panel(self, arena):
+
+        p = Panel(arena)        
         
 master = Tk()
 app = Application(master)
