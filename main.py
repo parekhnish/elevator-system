@@ -1,3 +1,4 @@
+from floor import *
 from elevator import *
 from Tkinter import *
 from panel import *
@@ -13,7 +14,8 @@ class Application:
         self.building.pack(side=LEFT)
 
         self.panel = Canvas(master, width = 300, height = 700)
-        self.panel.pack(side=LEFT)        
+        self.panel.pack(side=LEFT)
+
         self.make_floors(self.building)
         self.make_elevators(self.building)
         self.draw_panel(self.panel)
@@ -35,6 +37,11 @@ class Application:
 
         for i in range(1,11):
             canvas.create_rectangle(0,50+(i*60),1000,50+(i*60))
+
+        self.floor_list = []
+        for i in range(0,10):
+            f = Floor(canvas,i)
+            self.floor_list.append(f)
 
     def simulate(self):
 
