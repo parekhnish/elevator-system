@@ -35,4 +35,5 @@ class Elevator(object):
         if self.y >= 230:
             self.vel = 0
             canvas.itemconfigure(self.body,fill="#ff4")
+
         canvas.update()
