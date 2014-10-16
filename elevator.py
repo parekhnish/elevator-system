@@ -4,7 +4,7 @@ class Elevator(object):
 	def __init__(self,canvas,name):
 
 		self.name = name
-		self.body = canvas.create_rectangle(50+(self.name*50),50,80+(self.name*50),150,fill="#060")
+		self.body = canvas.create_rectangle(250+(self.name*80),50,280+(self.name*80),100,fill="#060")
 		self.x = canvas.coords(self.body)[0]
 		self.y = canvas.coords(self.body)[1]
 
