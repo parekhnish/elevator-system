@@ -1,5 +1,6 @@
 from elevator import *
 from Tkinter import *
+from panel.py import *
 
 class Application:    
     
@@ -12,6 +13,15 @@ class Application:
         self.building.pack(side=LEFT)
 
         self.panel = Canvas(master, width = 300, height = 700)
+<<<<<<< HEAD
+        self.panel.pack(side=LEFT)        
+        
+        self.draw_panel(self.panel)
+
+    def draw_panel(self, arena):
+
+        p = Panel(arena)        
+=======
         self.panel.pack(side=LEFT)
 
         self.make_elevators(self.building)
@@ -29,6 +39,7 @@ class Application:
             e.update(self.building)
 
         self.master.after(40,self.simulate)
+>>>>>>> 7c2d112d06ced412244db3f39568ce3f24241f36
         
 master = Tk()
 app = Application(master)
