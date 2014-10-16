@@ -21,9 +21,4 @@ class Elevator(object):
     def update(self,canvas):
 
         canvas.move(self.body,0,self.vel)
-	self.x = canvas.coords(self.body)[0]
-        self.y = canvas.coords(self.body)[1]
-        #print self.y
-        if self.y >= 200:
-            self.vel = 0   
         canvas.update()
