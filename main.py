@@ -1,6 +1,6 @@
 from elevator import *
 from Tkinter import *
-from panel.py import *
+from panel import *
 
 class Application:    
     
@@ -14,7 +14,7 @@ class Application:
 
         self.panel = Canvas(master, width = 300, height = 700)
         self.panel.pack(side=LEFT)        
-        
+        self.make_floors(self.building)
         self.make_elevators(self.building)
         self.draw_panel(self.panel)
 
@@ -28,6 +28,13 @@ class Application:
         for i in range(0,4):
             e = Elevator(canvas, i)
             self.elevator_list.append(e)
+
+    def make_floors(self,canvas):
+
+        canvas.create_rectangle(0,50,1000,50, fill = "#000")
+
+        for i in range(1,11):
+            canvas.create_rectangle(0,50+(i*60),1000,50+(i*60))
 
     def simulate(self):
 
