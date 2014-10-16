@@ -1,25 +1,21 @@
-class Elevator(object):
+from Tkinter import *
 
-	def __init__(self,canvas,name):
+class Application:    
+    
+    def __init__(self, master):
 
-		self.name = name
-		self.body = canvas.create_rectangle(200,200,200,200,fill="#000")
-		self.x = canvas.coords(self.body)[0]
-		self.y = canvas.coords(self.body)[1]
+        global building
 
-		self.floor_list = []
-		for i in range(0,11):
-			floor_list[i] = False
+        self.building = Canvas(master, width = 1000, height = 700)
+        self.building.pack(side=LEFT)
 
-		print len(floor_list)
-
-		self.call_queue = []
-
-		self.door_status = "closed"
-		self.move_status = "idle"
-		self.current_floor = 0
-
-		self.vel = 0
+        self.panel = Canvas(master, width = 300, height = 700)
+        self.panel.pack(side=LEFT)        
+        
+        
+master = Tk()
+app = Application(master)
+master.mainloop()
 
 
 
