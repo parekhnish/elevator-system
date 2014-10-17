@@ -2,21 +2,44 @@ class Panel(object):
 
     def __init__(self,canvas):
 
+        #GLOBAL VARIABLES
+        self.PANEL_WIDTH         = 150  
+        self.PANEL_HEIGHT        = 250
+        self.BUTTON_LENGTH       = 30
+        self.PANEL_X             = 50
+        self.PANEL_Y             = 300
+        self.DISPLAY_HALF_HEIGHT = 50
+        self.BUTTON_HALF_HEIGHT  = 200
+
+        #HORIZONTAL PARTITION LINE VARIABLES
+        self.HLINE1_X            = 50
+        self.HLINE1_Y            = 400
+        self.HLINE2_X            = 50
+        self.HLINE2_Y            = 450
+        self.HLINE3_X            = 50
+        self.HLINE3_Y            = 500
+
+        #VERTICAL PARTITION LINE VARIABLES
+        self.VLINE1_X            = 100
+        self.VLINE1_Y            = 350
+        self.VLINE2_X            = 150
+        self.VLINE2_Y            = 350
+
         #MAIN PANEL BODY
-        self.body = canvas.create_rectangle(50,300,200,550,fill="#fff")
+        self.body = canvas.create_rectangle(self.PANEL_X,self.PANEL_Y,self.PANEL_X + self.PANEL_WIDTH,self.PANEL_Y + self.PANEL_HEIGHT,fill="#fff")
         
-        self.display_half   = canvas.create_rectangle(50,300,200,350,fill="#444")
-        self.v_display_line = canvas.create_rectangle(150,300,150,350,fill="#444")
-        self.button_half    = canvas.create_rectangle(50,350,200,550,fill="#fff")
+        self.display_half   = canvas.create_rectangle(self.PANEL_X,self.PANEL_Y,self.PANEL_X + self.PANEL_WIDTH,self.PANEL_Y + self.DISPLAY_HALF_HEIGHT,fill="#444")
+        #self.v_display_line = canvas.create_rectangle(150,300,150,350,fill="#444")
+        self.button_half    = canvas.create_rectangle(self.PANEL_X,self.PANEL_Y + self.DISPLAY_HALF_HEIGHT,self.PANEL_X + self.PANEL_WIDTH,self.PANEL_Y + self.BUTTON_HALF_HEIGHT,fill="#fff")
 
         #HORIZONTAL LINES
-        self.hline_1 = canvas.create_rectangle(50,400,200,400,fill="#000")
-        self.hline_2 = canvas.create_rectangle(50,450,200,450,fill="#000")
-        self.hline_3 = canvas.create_rectangle(50,500,200,500,fill="#000")
+        self.hline_1 = canvas.create_rectangle(self.HLINE1_X,self.HLINE1_Y,self.HLINE1_X + self.PANEL_WIDTH,self.HLINE1_Y,fill="#000")
+        self.hline_2 = canvas.create_rectangle(self.HLINE2_X,self.HLINE2_Y,self.HLINE2_X + self.PANEL_WIDTH,self.HLINE2_Y,fill="#000")
+        self.hline_3 = canvas.create_rectangle(self.HLINE3_X,self.HLINE3_Y,self.HLINE3_X + self.PANEL_WIDTH,self.HLINE3_Y,fill="#000")
         
         #VERTICAL LINES
-        self.vline_1 = canvas.create_rectangle(100,350,100,550,fill="#000")
-        self.vline_2 = canvas.create_rectangle(150,350,150,550,fill="#000")
+        self.vline_1 = canvas.create_rectangle(self.VLINE1_X,self.VLINE1_Y,self.VLINE1_X,self.VLINE1_Y + self.BUTTON_HALF_HEIGHT,fill="#000")
+        self.vline_2 = canvas.create_rectangle(self.VLINE2_X,self.VLINE2_Y,self.VLINE2_X,self.VLINE2_Y + self.BUTTON_HALF_HEIGHT,fill="#000")
         
         #BUTTON 1
         self.button_1   = canvas.create_rectangle(60,360,90,390,fill="#888")
