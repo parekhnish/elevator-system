@@ -22,7 +22,8 @@ class Panel(object):
         self.button_1   = canvas.create_rectangle(60,360,90,390,fill="#888")
         self.button_1_id = canvas.create_text(70, 370, anchor="nw")
         canvas.itemconfig(self.button_1_id, text="1")
-        
+        #canvas.tag_bind(self.button_1_id, 'ButtonPress-1', self.foo(1))
+
         #BUTTON 2
         self.button_2 = canvas.create_rectangle(110,360,140,390,fill="#888")
         self.button_2_id = canvas.create_text(120, 370, anchor="nw")
@@ -68,4 +69,6 @@ class Panel(object):
         self.button_10_id = canvas.create_text(120, 520, anchor="nw")
         canvas.itemconfig(self.button_10_id, text="G")
         
-        
+    def foo(self,i):
+
+        print "Button " + str(i) + " pressed!"    
