@@ -2,6 +2,9 @@ class Panel(object):
 
     def __init__(self,canvas):
 
+        self.canvas = canvas
+        #self.elevator = elevator   [TO BE ADDED NEXT TIME :p]
+        
         #GLOBAL VARIABLES
         self.PANEL_WIDTH         = 150  
         self.PANEL_HEIGHT        = 250
@@ -41,70 +44,97 @@ class Panel(object):
         self.vline_1 = canvas.create_rectangle(self.VLINE1_X,self.VLINE1_Y,self.VLINE1_X,self.VLINE1_Y + self.BUTTON_HALF_HEIGHT,fill="#000")
         self.vline_2 = canvas.create_rectangle(self.VLINE2_X,self.VLINE2_Y,self.VLINE2_X,self.VLINE2_Y + self.BUTTON_HALF_HEIGHT,fill="#000")
         
+        #BUTTON LIST AND BUTTON STATUS FLAGS
+        self.button_list = []
+        self.flag_list   = []
+
+        for i in range(0,10):
+            self.flag_list.append(False)
+
         #BUTTON 1
         self.button_1   = canvas.create_rectangle(60,360,90,390,fill="#888")
         self.button_1_id = canvas.create_text(70, 370, anchor="nw")
         canvas.itemconfig(self.button_1_id, text="1")
-        canvas.tag_bind(self.button_1, '<Button-1>', lambda x: self.foo(1))
-        # self.button_1.bind('<Button-1>',foo)
-
+        canvas.tag_bind(self.button_1, '<Button-1>', lambda x: self.foo(1,self.flag_list[0]))
+        self.button_list.append(self.button_1)
+       
         #BUTTON 2
         self.button_2 = canvas.create_rectangle(110,360,140,390,fill="#888")
         self.button_2_id = canvas.create_text(120, 370, anchor="nw")
         canvas.itemconfig(self.button_2_id, text="2")
-        canvas.tag_bind(self.button_2, '<Button-1>', lambda x: self.foo(2))
-
+        canvas.tag_bind(self.button_2, '<Button-1>', lambda x: self.foo(2,self.flag_list[1]))
+        self.button_list.append(self.button_2)
+        
         #BUTTON 3
         self.button_3 = canvas.create_rectangle(160,360,190,390,fill="#888")
         self.button_3_id = canvas.create_text(170, 370, anchor="nw")
         canvas.itemconfig(self.button_3_id, text="3")
-        canvas.tag_bind(self.button_3, '<Button-1>', lambda x: self.foo(3))
-
+        canvas.tag_bind(self.button_3, '<Button-1>', lambda x: self.foo(3,self.flag_list[2]))
+        self.button_list.append(self.button_3)
+        
         #BUTTON 4
         self.button_4 = canvas.create_rectangle(60,410,90,440,fill="#888")
         self.button_4_id = canvas.create_text(70, 420, anchor="nw")
         canvas.itemconfig(self.button_4_id, text="4")
-        canvas.tag_bind(self.button_4, '<Button-1>', lambda x: self.foo(4))
-
+        canvas.tag_bind(self.button_4, '<Button-1>', lambda x: self.foo(4,self.flag_list[3]))
+        self.button_list.append(self.button_4)
+        
         #BUTTON 5
         self.button_5 = canvas.create_rectangle(110,410,140,440,fill="#888")
         self.button_5_id = canvas.create_text(120, 420, anchor="nw")
         canvas.itemconfig(self.button_5_id, text="5")
-        canvas.tag_bind(self.button_5, '<Button-1>', lambda x: self.foo(5))
-
+        canvas.tag_bind(self.button_5, '<Button-1>', lambda x: self.foo(5,self.flag_list[4]))
+        self.button_list.append(self.button_5)
+        
         #BUTTON 6
         self.button_6 = canvas.create_rectangle(160,410,190,440,fill="#888")
         self.button_6_id = canvas.create_text(170, 420, anchor="nw")
         canvas.itemconfig(self.button_6_id, text="6")
-        canvas.tag_bind(self.button_6, '<Button-1>', lambda x: self.foo(6))
-
+        canvas.tag_bind(self.button_6, '<Button-1>', lambda x: self.foo(6,self.flag_list[5]))
+        self.button_list.append(self.button_6)
+        
         #BUTTON 7
         self.button_7 = canvas.create_rectangle(60,460,90,490,fill="#888")
         self.button_7_id = canvas.create_text(70, 470, anchor="nw")
         canvas.itemconfig(self.button_7_id, text="7")
-        canvas.tag_bind(self.button_7, '<Button-1>', lambda x: self.foo(7))
-
+        canvas.tag_bind(self.button_7, '<Button-1>', lambda x: self.foo(7,self.flag_list[6]))
+        self.button_list.append(self.button_7)
+        
         #BUTTON 8
         self.button_8 = canvas.create_rectangle(110,460,140,490,fill="#888")
         self.button_8_id = canvas.create_text(120, 470, anchor="nw")
         canvas.itemconfig(self.button_8_id, text="8")
-        canvas.tag_bind(self.button_8, '<Button-1>', lambda x: self.foo(8))
-
+        canvas.tag_bind(self.button_8, '<Button-1>', lambda x: self.foo(8,self.flag_list[7]))
+        self.button_list.append(self.button_8)
+        
         #BUTTON 9
         self.button_9 = canvas.create_rectangle(160,460,190,490,fill="#888")
         self.button_9_id = canvas.create_text(170, 470, anchor="nw")
         canvas.itemconfig(self.button_9_id, text="9")
-        canvas.tag_bind(self.button_9, '<Button-1>', lambda x: self.foo(9))
-
+        canvas.tag_bind(self.button_9, '<Button-1>', lambda x: self.foo(9,self.flag_list[8]))
+        self.button_list.append(self.button_9)
+        
         #BUTTON G
         self.button_10 = canvas.create_rectangle(110,510,140,540,fill="#888")
         self.button_10_id = canvas.create_text(120, 520, anchor="nw")
         canvas.itemconfig(self.button_10_id, text="G")
-        canvas.tag_bind(self.button_10, '<Button-1>', lambda x: self.foo('G'))
+        canvas.tag_bind(self.button_10, '<Button-1>', lambda x: self.foo('G',self.flag_list[9]))
+        self.button_list.append(self.button_10)
+               
 
-    def foo(self,event):
+    def foo(self,event,flag):
 
-        print "Button " + str(event) + " pressed!"
+        if flag == False:
+            self.canvas.itemconfig(self.button_list[event-1], fill="#ff0")
+            self.flag_list[event-1] = True
+
+        else:            
+            self.canvas.itemconfig(self.button_list[event-1], fill="#888")
+            self.flag_list[event-1] = False
+
         
+        
+    
+
 
     
