@@ -28,12 +28,18 @@ class Elevator(object):
 
     def update(self,canvas):
 
+        self.checkCurrentFloor()
+
         canvas.move(self.body,0,self.vel)
         self.x = canvas.coords(self.body)[0]
         self.y = canvas.coords(self.body)[1]
-        #print self.y
         if self.y >= 230:
             self.vel = 0
             canvas.itemconfigure(self.body,fill="#ff4")
 
         canvas.update()
+
+    def checkCurrentFloor(self):
+
+        if((self.y+10)%60==0):
+            self.current_floor = 10 - (self.y+10)/60
