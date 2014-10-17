@@ -1,7 +1,8 @@
 class Floor(object):
 
-	def __init__(self,canvas,name):
+	def __init__(self,canvas,app,name):
 
+		self.app = app
 		self.name = name
 		self.canvas = canvas
 		self.up_button = canvas.create_polygon( 100,(10-name)*60 + 10 , 83,60*(10-name) + 30 , 117,60*(10-name) + 30 , fill="#000")
@@ -18,12 +19,15 @@ class Floor(object):
 		if(self.up_status=="off"):
 			self.canvas.itemconfigure(self.up_button, fill = "#f00")
 			self.up_status = "on"
+			self.app.floorRequest(self.name,"up")
+
 
 	def downColorChange(self,event):
 
 		if(self.down_status=="off"):
 			self.canvas.itemconfigure(self.down_button, fill = "#f00")
 			self.down_status = "on"
+			self.app.floorRequest(self.name,"down")
 
 
 

@@ -43,7 +43,7 @@ class Application:
 
         self.floor_list = []
         for i in range(0,10):
-            f = Floor(canvas,i)
+            f = Floor(canvas, self, i)
             self.floor_list.append(f)
 
     def simulate(self):
@@ -52,6 +52,15 @@ class Application:
             e.update(self.building)
 
         self.master.after(40,self.simulate)
+
+    def floorRequest(self,floor,dir):
+        
+        for e in self.elevator_list:
+            if (e.move_status=="idle"):
+                e.addFloor(floor)
+                break
+
+        
         
 master = Tk()
 app = Application(master)

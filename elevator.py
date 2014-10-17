@@ -14,6 +14,7 @@ class Elevator(object):
         self.body = canvas.create_rectangle(self.ELEVATOR_START_X+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y,self.ELEVATOR_START_X+self.ELEVATOR_WIDTH+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y+self.ELEVATOR_HEIGHT,fill=self.ELEVATOR_COLOR)
         self.x = canvas.coords(self.body)[0]
         self.y = canvas.coords(self.body)[1]
+        self.dest = None
 
         self.floor_list = []
         for i in range(0,10):
@@ -24,16 +25,21 @@ class Elevator(object):
         self.door_status = "closed"
         self.move_status = "idle"
         self.current_floor = 0
-        self.vel = self.ELEVATOR_VELOCITY
+        self.vel = 0
+
+    def addFloor(self,floor):
+
+        self.call_queue.append(floor)
 
     def update(self,canvas):
 
+        self.checkMoveStatus()
         self.checkCurrentFloor()
-
+        
         canvas.move(self.body,0,self.vel)
         self.x = canvas.coords(self.body)[0]
         self.y = canvas.coords(self.body)[1]
-        if self.y >= 230:
+        if self.y >= 590:
             self.vel = 0
             canvas.itemconfigure(self.body,fill="#ff4")
 
@@ -43,3 +49,24 @@ class Elevator(object):
 
         if((self.y+10)%60==0):
             self.current_floor = 10 - (self.y+10)/60
+
+        if self.dest == self.current_floor:
+            self.vel = 0
+
+    def checkMoveStatus(self):
+
+        if(self.vel>0):
+            self.move_status = "down"
+        elif(self.vel<0):
+            self.move_status = "up"
+        else:
+            self.move_status = "idle"
+
+        if self.move_status=="idle" and len(self.call_queue)!=0:
+            self.dest = self.call_queue[0]
+            if(self.current_floor < self.dest):
+                self.vel = -self.ELEVATOR_VELOCITY
+                self.move_status = "down"
+            else:
+                self.vel = self.ELEVATOR_VELOCITY
+                self.move_status = "up"
