@@ -33,10 +33,13 @@ class Application:
 
     def make_floors(self,canvas):
 
-        canvas.create_rectangle(0,50,1000,50, fill = "#000")
+        canvas.create_rectangle(200,50,700,50, fill = "#000")
 
         for i in range(1,11):
-            canvas.create_rectangle(0,50+(i*60),1000,50+(i*60))
+            canvas.create_rectangle(200,50+(i*60),700,50+(i*60))
+
+        canvas.create_rectangle(200,50,200,650, fill = "#000")
+        canvas.create_rectangle(700,50,700,650, fill = "#000")
 
         self.floor_list = []
         for i in range(0,10):
