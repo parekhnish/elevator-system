@@ -10,10 +10,10 @@ class Application:
         global building
 
         self.master = master
-        self.building = Canvas(master, width = 1000, height = 700)
+        self.building = Canvas(master, width = 800, height = 700)
         self.building.pack(side=LEFT)
 
-        self.panel = Canvas(master, width = 300, height = 700)
+        self.panel = Canvas(master, width = 500, height = 700)
         self.panel.pack(side=LEFT)
 
         self.make_floors(self.building)
@@ -21,9 +21,12 @@ class Application:
         self.draw_panel(self.panel)
 
     def draw_panel(self, arena):
-
-        p = Panel(arena)        
-
+        self.panel_list = []
+        
+        for i in range(0,4):
+            p = Panel(arena,i+1)
+            self.panel_list.append(p)
+        
     def make_elevators(self,canvas):
 
         self.elevator_list = []

@@ -1,34 +1,50 @@
 class Panel(object):
 
-    def __init__(self,canvas):
+    def __init__(self,canvas,number):
 
         self.canvas = canvas
-        #self.elevator = elevator   [TO BE ADDED NEXT TIME :p]
+        self.elevator = number
         
         #GLOBAL VARIABLES
         self.PANEL_WIDTH         = 150  
         self.PANEL_HEIGHT        = 250
         self.BUTTON_LENGTH       = 30
-        self.PANEL_X             = 50
-        self.PANEL_Y             = 300
+        self.PANEL_GAP           = 70 
         self.DISPLAY_HALF_HEIGHT = 50
         self.BUTTON_HALF_HEIGHT  = 200
         self.OFFSET              = 10
         self.TEXT_OFFSET         = 10
+        #--------------------------------------------------
+        if(self.elevator == 1):
+            self.PANEL_X             = 20 
+            self.PANEL_Y             = 70 
+        #--------------------------------------------------
+        elif self.elevator == 2:        
+            self.PANEL_X             = 20 + (self.PANEL_WIDTH + self.PANEL_GAP)
+            self.PANEL_Y             = 70         
+        #--------------------------------------------------
+        elif self.elevator == 3:
+            self.PANEL_X             = 20 
+            self.PANEL_Y             = 70 + (self.PANEL_HEIGHT + self.PANEL_GAP)        
+        #--------------------------------------------------
+        else:
+            self.PANEL_X             = 20 + (self.PANEL_WIDTH + self.PANEL_GAP)
+            self.PANEL_Y             = 70 + (self.PANEL_HEIGHT + self.PANEL_GAP)        
+        #--------------------------------------------------
 
         #HORIZONTAL PARTITION LINE VARIABLES
-        self.HLINE1_X            = 50
-        self.HLINE1_Y            = 400
-        self.HLINE2_X            = 50
-        self.HLINE2_Y            = 450
-        self.HLINE3_X            = 50
-        self.HLINE3_Y            = 500
+        self.HLINE1_X            = self.PANEL_X
+        self.HLINE1_Y            = self.PANEL_Y + 2*self.DISPLAY_HALF_HEIGHT
+        self.HLINE2_X            = self.PANEL_X
+        self.HLINE2_Y            = self.PANEL_Y + 3*self.DISPLAY_HALF_HEIGHT
+        self.HLINE3_X            = self.PANEL_X
+        self.HLINE3_Y            = self.PANEL_Y + 4*self.DISPLAY_HALF_HEIGHT
 
         #VERTICAL PARTITION LINE VARIABLES
-        self.VLINE1_X            = 100
-        self.VLINE1_Y            = 350
-        self.VLINE2_X            = 150
-        self.VLINE2_Y            = 350
+        self.VLINE1_X            = self.PANEL_X + self.DISPLAY_HALF_HEIGHT
+        self.VLINE1_Y            = self.PANEL_Y + self.DISPLAY_HALF_HEIGHT
+        self.VLINE2_X            = self.PANEL_X + 2*self.DISPLAY_HALF_HEIGHT
+        self.VLINE2_Y            = self.PANEL_Y + self.DISPLAY_HALF_HEIGHT
 
         #BUTTON VARIABLES
         self.BUTTON_START_X      = self.PANEL_X + self.OFFSET
