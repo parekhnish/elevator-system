@@ -1,6 +1,6 @@
 class Elevator(object):
 
-    def __init__(self,canvas,name):
+    def __init__(self,building,canvas,name):
 
         self.ELEVATOR_WIDTH = 50
         self.ELEVATOR_HEIGHT = 60
@@ -10,6 +10,7 @@ class Elevator(object):
         self.ELEVATOR_VELOCITY = 5
         self.ELEVATOR_COLOR = "#060"
 
+        self.building = building
         self.name = name
         self.body = canvas.create_rectangle(self.ELEVATOR_START_X+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y,self.ELEVATOR_START_X+self.ELEVATOR_WIDTH+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y+self.ELEVATOR_HEIGHT,fill=self.ELEVATOR_COLOR)
         #self.middle_line = canvas.create_rectangle(1.5*self.ELEVATOR_START_X+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y,1.5*self.ELEVATOR_START_X+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y+self.ELEVATOR_HEIGHT,fill= "#000")
@@ -104,19 +105,23 @@ class Elevator(object):
             self.current_floor = None
 
         if self.dest == self.current_floor:
+
             if self.dest in self.call_queue:
+                self.building.floor_list[self.dest].upTurnOff()
+                self.building.floor_list[self.dest].downTurnOff()
                 self.call_queue.remove(self.dest)
+
             self.status = "opening"
             self.vel = 0
 
     def openDoor(self):
-        if self.door_status == 500:
+        if self.door_status == 50:
             self.status = "open"
         else:
             self.door_status += 5
 
     def keepDoorOpen(self):
-        if self.open_status == 1000:
+        if self.open_status == 100:
             self.status = "closing"
             self.open_status = 0
 

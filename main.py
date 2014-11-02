@@ -33,7 +33,7 @@ class Application:
 
         self.elevator_list = []
         for i in range(0,4):
-            e = Elevator(canvas, i)
+            e = Elevator(self,canvas, i)
             self.elevator_list.append(e)
         #print "Called make_elevators!"
 
