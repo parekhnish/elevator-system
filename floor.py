@@ -21,7 +21,6 @@ class Floor(object):
 			self.up_status = "on"
 			self.app.floorRequest(self.name,"up")
 
-		print "Called upColorChange!"
 
 	def downColorChange(self,event):
 
@@ -29,7 +28,5 @@ class Floor(object):
 			self.canvas.itemconfigure(self.down_button, fill = "#f00")
 			self.down_status = "on"
 			self.app.floorRequest(self.name,"down")
-
-		print "Called downColorChange!"
 
 

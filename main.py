@@ -66,7 +66,7 @@ class Application:
     def floorRequest(self,floor,dir):
         
         for e in self.elevator_list:
-            if (e.move_status=="idle"):
+            if (e.status=="idle"):
                 e.addFloor(floor)
                 break
 
