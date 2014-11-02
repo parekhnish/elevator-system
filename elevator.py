@@ -8,12 +8,13 @@ class Elevator(object):
         self.ELEVATOR_START_X = 250
         self.ELEVATOR_START_Y = 50
         self.ELEVATOR_VELOCITY = 5
-        self.ELEVATOR_COLOR = "#060"
+        self.ELEVATOR_COLOR = "#222"
+        self.DOOR_COLOR = "#FE8"
 
         self.building = building
         self.name = name
         self.body = canvas.create_rectangle(self.ELEVATOR_START_X+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y,self.ELEVATOR_START_X+self.ELEVATOR_WIDTH+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y+self.ELEVATOR_HEIGHT,fill=self.ELEVATOR_COLOR)
-        #self.middle_line = canvas.create_rectangle(1.5*self.ELEVATOR_START_X+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y,1.5*self.ELEVATOR_START_X+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y+self.ELEVATOR_HEIGHT,fill= "#000")
+        self.door = canvas.create_rectangle(self.ELEVATOR_START_X+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y,self.ELEVATOR_START_X+        1          +(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y+self.ELEVATOR_HEIGHT,fill=self.DOOR_COLOR)
         self.x = canvas.coords(self.body)[0]
         self.y = canvas.coords(self.body)[1]
         self.dest = None
@@ -48,13 +49,13 @@ class Elevator(object):
             self.moveElevator(canvas)
 
         elif self.status == "opening":
-            self.openDoor()
+            self.openDoor(canvas)
 
         elif self.status == "open":
             self.keepDoorOpen()
 
         elif self.status == "closing":
-            self.closeDoor()
+            self.closeDoor(canvas)
         
         # canvas.move(self.body,0,self.vel)
         # self.x = canvas.coords(self.body)[0]
@@ -114,11 +115,12 @@ class Elevator(object):
             self.status = "opening"
             self.vel = 0
 
-    def openDoor(self):
+    def openDoor(self,canvas):
         if self.door_status == 50:
             self.status = "open"
         else:
-            self.door_status += 5
+            self.door_status += 2
+            canvas.coords(self.door,self.x,self.y,self.x+self.door_status,self.y+self.ELEVATOR_HEIGHT)
 
     def keepDoorOpen(self):
         if self.open_status == 100:
@@ -128,12 +130,13 @@ class Elevator(object):
         else:
             self.open_status += 5
 
-    def closeDoor(self):
+    def closeDoor(self,canvas):
         if self.door_status == 0:
             self.status = "idle"
 
         else:
-            self.door_status -= 5
+            self.door_status -= 2
+            canvas.coords(self.door,self.x,self.y,self.x+self.door_status,self.y+self.ELEVATOR_HEIGHT)
 
 
     def moveElevator(self,canvas):
@@ -146,5 +149,6 @@ class Elevator(object):
             self.move_status = "idle"
 
         canvas.move(self.body,0,self.vel)
+        canvas.move(self.door,0,self.vel)
         self.x = canvas.coords(self.body)[0]
         self.y = canvas.coords(self.body)[1]
