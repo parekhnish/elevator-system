@@ -59,7 +59,6 @@ class Panel(object):
         self.body = canvas.create_rectangle(self.PANEL_X,self.PANEL_Y,self.PANEL_X + self.PANEL_WIDTH,self.PANEL_Y + self.PANEL_HEIGHT,fill="#fff")
         
         self.display_half   = canvas.create_rectangle(self.PANEL_X,self.PANEL_Y,self.PANEL_X + self.PANEL_WIDTH,self.PANEL_Y + self.DISPLAY_HALF_HEIGHT,fill="#444")
-        #self.v_display_line = canvas.create_rectangle(150,300,150,350,fill="#444")
         self.button_half    = canvas.create_rectangle(self.PANEL_X,self.PANEL_Y + self.DISPLAY_HALF_HEIGHT,self.PANEL_X + self.PANEL_WIDTH,self.PANEL_Y + self.BUTTON_HALF_HEIGHT,fill="#fff")
 
         #HORIZONTAL LINES
@@ -191,7 +190,14 @@ class Panel(object):
             if event == 'G' or event == '<' or event == '>':
                 if event == 'G':
                     self.elevator.addFloor(0)
-            
+                
+                elif event == '>':
+                    if self.elevator.status == "closing" or self.elevator.status == "idle":
+                        self.elevator.status = "opening"         
+                elif event == '<':
+                    if self.elevator.status == "opening" or self.elevator.status == "open":
+                        self.elevator.status == "closing"
+
             else:    
                 self.elevator.addFloor(event)
 
@@ -215,10 +221,13 @@ class Panel(object):
 
             if event == 'G' or event == '<' or event == '>':
                 if event == 'G':
-                    self.elevator.call_queue.remove(0)
+                    temp = 0
+                    if temp in self.elevator.call_queue:
+                        self.elevator.call_queue.remove(0)
 
             else:
-                self.elevator.call_queue.remove(event)        
+                if event in self.elevator.call_queue:
+                    self.elevator.call_queue.remove(event)        
             
 
             if event == 'G':
