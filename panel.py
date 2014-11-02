@@ -1,9 +1,10 @@
 class Panel(object):
 
-    def __init__(self,canvas,number):
+    def __init__(self,canvas,number,elevator):
 
-        self.canvas = canvas
-        self.elevator = number
+        self.canvas   = canvas
+        self.elevator = elevator
+        self.number   = number
         
         #GLOBAL VARIABLES
         self.PANEL_WIDTH         = 150  
@@ -15,15 +16,15 @@ class Panel(object):
         self.OFFSET              = 10
         self.TEXT_OFFSET         = 10
         #--------------------------------------------------
-        if(self.elevator == 1):
+        if(self.number == 1):
             self.PANEL_X             = 20 
             self.PANEL_Y             = 70 
         #--------------------------------------------------
-        elif self.elevator == 2:        
+        elif self.number == 2:        
             self.PANEL_X             = 20 + (self.PANEL_WIDTH + self.PANEL_GAP)
             self.PANEL_Y             = 70         
         #--------------------------------------------------
-        elif self.elevator == 3:
+        elif self.number == 3:
             self.PANEL_X             = 20 
             self.PANEL_Y             = 70 + (self.PANEL_HEIGHT + self.PANEL_GAP)        
         #--------------------------------------------------
@@ -32,7 +33,7 @@ class Panel(object):
             self.PANEL_Y             = 70 + (self.PANEL_HEIGHT + self.PANEL_GAP)        
         #--------------------------------------------------
 
-        self.label = self.canvas.create_text(self.PANEL_X + self.PANEL_WIDTH/2,self.PANEL_Y - 10,font="Arial 20 bold", text = "Elevator " + str(self.elevator))
+        self.label = self.canvas.create_text(self.PANEL_X + self.PANEL_WIDTH/2,self.PANEL_Y - 10,font="Arial 20 bold", text = "Elevator " + str(self.number))
 
         #HORIZONTAL PARTITION LINE VARIABLES
         self.HLINE1_X            = self.PANEL_X
@@ -170,10 +171,17 @@ class Panel(object):
     def foo(self,event,flag):
 
         if flag == False:
+            
+            if event == 'G':
+                self.elevator.addFloor(0)
+            else:
+                self.elevator.addFloor(event)
+
             self.canvas.itemconfig(self.button_list[event-1], fill="#ff0")
             self.flag_list[event-1] = True
 
-        else:            
+        else:
+                    
             self.canvas.itemconfig(self.button_list[event-1], fill="#888")
             self.flag_list[event-1] = False
 

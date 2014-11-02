@@ -18,24 +18,27 @@ class Application:
 
         self.make_floors(self.building)
         self.make_elevators(self.building)
-        self.draw_panel(self.panel)
+        self.make_panels(self.panel)
 
-    def draw_panel(self, arena):
+    def make_panels(self, arena):
         self.panel_list = []
         
         for i in range(0,4):
-            p = Panel(arena,i+1)
+            p = Panel(arena,i+1,self.elevator_list[i])
             self.panel_list.append(p)
         
+        #print "Called make_panels"        
+    
     def make_elevators(self,canvas):
 
         self.elevator_list = []
         for i in range(0,4):
             e = Elevator(canvas, i)
             self.elevator_list.append(e)
+        #print "Called make_elevators!"
 
     def make_floors(self,canvas):
-
+        
         canvas.create_rectangle(200,50,700,50, fill = "#000")
 
         for i in range(1,11):
@@ -49,12 +52,16 @@ class Application:
             f = Floor(canvas, self, i)
             self.floor_list.append(f)
 
+        #print "Called make_floors!"
+
     def simulate(self):
 
         for e in self.elevator_list:
             e.update(self.building)
 
         self.master.after(40,self.simulate)
+
+        #print "Called simulate!"
 
     def floorRequest(self,floor,dir):
         
@@ -63,7 +70,7 @@ class Application:
                 e.addFloor(floor)
                 break
 
-        
+        #print "Called floorRequest!"
         
 master = Tk()
 app = Application(master)
