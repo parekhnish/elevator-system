@@ -54,7 +54,6 @@ class Elevator(object):
 
         elif self.status == "closing":
             self.closeDoor()
-
         
         # canvas.move(self.body,0,self.vel)
         # self.x = canvas.coords(self.body)[0]

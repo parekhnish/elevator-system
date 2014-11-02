@@ -75,7 +75,7 @@ class Panel(object):
         self.button_list = []
         self.flag_list   = []
 
-        for i in range(0,10):
+        for i in range(0,12):
             self.flag_list.append(False)
 #----------------------------------------------------------------------------------------------------
         #BUTTON 1
@@ -167,23 +167,75 @@ class Panel(object):
         
         self.button_list.append(self.button_10)
 #----------------------------------------------------------------------------------------------------------               
-
+        #BUTTON <
+        self.button_11    = canvas.create_rectangle(self.BUTTON_START_X,self.BUTTON_START_Y + 3*self.BUTTON_GAP_Y,self.BUTTON_START_X + self.BUTTON_LENGTH,self.BUTTON_START_Y + 3*self.BUTTON_GAP_Y + self.BUTTON_LENGTH,fill="#888")
+        self.button_11_id = canvas.create_text(self.BUTTON_START_X + self.TEXT_OFFSET, self.BUTTON_START_Y + 3*self.BUTTON_GAP_Y + self.TEXT_OFFSET, anchor="nw")
+        
+        canvas.itemconfig(self.button_11_id, text="<")
+        canvas.tag_bind(self.button_11, '<Button-1>', lambda x: self.foo('<',self.flag_list[10]))
+        
+        self.button_list.append(self.button_11)
+#----------------------------------------------------------------------------------------------------------
+        #BUTTON 9
+        self.button_12    = canvas.create_rectangle(self.BUTTON_START_X + 2*self.BUTTON_GAP_X,self.BUTTON_START_Y + 3*self.BUTTON_GAP_Y,self.BUTTON_START_X + 2*self.BUTTON_GAP_X + self.BUTTON_LENGTH,self.BUTTON_START_Y + 3*self.BUTTON_GAP_Y + self.BUTTON_LENGTH,fill="#888")
+        self.button_12_id = canvas.create_text(self.BUTTON_START_X + 2*self.BUTTON_GAP_X + self.TEXT_OFFSET, self.BUTTON_START_Y + 3*self.BUTTON_GAP_Y + self.TEXT_OFFSET, anchor="nw")
+        
+        canvas.itemconfig(self.button_12_id, text=">")
+        canvas.tag_bind(self.button_12, '<Button-1>', lambda x: self.foo('>',self.flag_list[11]))
+        self.button_list.append(self.button_12)
+#-----------------------------------------------------------------------------------------------------------
     def foo(self,event,flag):
 
         if flag == False:
             
-            if event == 'G':
-                self.elevator.addFloor(0)
-            else:
+            if event == 'G' or event == '<' or event == '>':
+                if event == 'G':
+                    self.elevator.addFloor(0)
+            
+            else:    
                 self.elevator.addFloor(event)
 
-            self.canvas.itemconfig(self.button_list[event-1], fill="#ff0")
-            self.flag_list[event-1] = True
+            if event == 'G':
+                self.canvas.itemconfig(self.button_list[9], fill="#ff0")
+                self.flag_list[9] = True
+           
+            elif event == '<':
+                self.canvas.itemconfig(self.button_list[10], fill="#ff0")
+                self.flag_list[10] = True
+            
+            elif event == '>':
+                self.canvas.itemconfig(self.button_list[11], fill="#ff0")  
+                self.flag_list[11] = True
+
+            else:    
+                self.canvas.itemconfig(self.button_list[event-1], fill="#ff0")
+                self.flag_list[event-1] = True
 
         else:
-                    
-            self.canvas.itemconfig(self.button_list[event-1], fill="#888")
-            self.flag_list[event-1] = False
+
+            if event == 'G' or event == '<' or event == '>':
+                if event == 'G':
+                    self.elevator.call_queue.remove(0)
+
+            else:
+                self.elevator.call_queue.remove(event)        
+            
+
+            if event == 'G':
+                self.canvas.itemconfig(self.button_list[9], fill="#888")
+                self.flag_list[9] = False
+           
+            elif event == '<':
+                self.canvas.itemconfig(self.button_list[10], fill="#888")
+                self.flag_list[10] = False
+            
+            elif event == '>':
+                self.canvas.itemconfig(self.button_list[11], fill="#888")  
+                self.flag_list[11] = False
+
+            else:    
+                self.canvas.itemconfig(self.button_list[event-1], fill="#888")
+                self.flag_list[event-1] = False
 
         
         
