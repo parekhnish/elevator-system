@@ -39,20 +39,27 @@ class Application:
 
     def make_floors(self,canvas):
         
-        canvas.create_rectangle(200,50,700,50, fill = "#000")
+        #canvas.create_rectangle(200,50,700,50, fill = "#000")
+        #canvas.create_rectangle(200,650,700,650)
+        #for i in range(1,11):
+        #   canvas.create_rectangle(200,50+(i*60),700,50+(i*60))
 
-        for i in range(1,11):
-            canvas.create_rectangle(200,50+(i*60),700,50+(i*60))
+        for i in range(0,4):
+            canvas.create_rectangle(260+(i*120),40,260+(i*120),660)    
+            canvas.create_rectangle(290+(i*120),40,290+(i*120),660)
+            canvas.create_rectangle(260+(i*120),40,290+(i*120),40)
+            canvas.create_rectangle(260+(i*120),660,290+(i*120),660)
 
-        canvas.create_rectangle(200,50,200,650, fill = "#000")
-        canvas.create_rectangle(700,50,700,650, fill = "#000")
+        #canvas.create_rectangle(200,50,200,650, fill = "#000")
+        #canvas.create_rectangle(700,50,700,650, fill = "#000")
 
         self.floor_list = []
-        for i in range(0,10):
-            f = Floor(canvas, self, i)
-            self.floor_list.append(f)
 
-        #print "Called make_floors!"
+        for i in range(0,10):
+            display = canvas.create_rectangle(700,60+(i*60),750,100+(i*60))    
+            f = Floor(canvas, self, i, display)
+            self.floor_list.append(f)
+ 
 
     def simulate(self):
 

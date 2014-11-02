@@ -33,7 +33,7 @@ class Panel(object):
             self.PANEL_Y             = 70 + (self.PANEL_HEIGHT + self.PANEL_GAP)        
         #--------------------------------------------------
 
-        self.label = self.canvas.create_text(self.PANEL_X + self.PANEL_WIDTH/2,self.PANEL_Y - 10,font="Arial 20 bold", text = "Elevator " + str(self.number))
+        self.label = self.canvas.create_text(self.PANEL_X + self.PANEL_WIDTH/2,self.PANEL_Y - 15,font="Arial 20 bold", text = "Elevator " + str(self.number))
 
         #HORIZONTAL PARTITION LINE VARIABLES
         self.HLINE1_X            = self.PANEL_X
