@@ -47,7 +47,7 @@ class Elevator(object):
             canvas.itemconfigure(self.body,fill="#ff4")
 
         canvas.update()
-        print "Called Update!"
+        #print "Called Update!"
 
     def checkCurrentFloor(self):
 
@@ -59,7 +59,7 @@ class Elevator(object):
             #self.call_queue.pop(0)
             #self.move_status = "idle"
 
-        print "Called checkCurrentFloor!"
+        #print "Called checkCurrentFloor!"
 
     def checkMoveStatus(self):
 
@@ -79,4 +79,4 @@ class Elevator(object):
                 self.vel = self.ELEVATOR_VELOCITY
                 self.move_status = "up"
 
-        print "Called checkMoveStatus!"
+        #print "Called checkMoveStatus!"

@@ -21,7 +21,7 @@ class Floor(object):
 			self.up_status = "on"
 			self.app.floorRequest(self.name,"up")
 
-		print "Called upColorChange!"
+		#print "Called upColorChange!"
 
 	def downColorChange(self,event):
 
@@ -30,6 +30,6 @@ class Floor(object):
 			self.down_status = "on"
 			self.app.floorRequest(self.name,"down")
 
-		print "Called downColorChange!"
+		#print "Called downColorChange!"
 
 
