@@ -196,7 +196,7 @@ class Panel(object):
                         self.elevator.status = "opening"         
                 elif event == '<':
                     if self.elevator.status == "opening" or self.elevator.status == "open":
-                        self.elevator.status == "closing"
+                        self.elevator.status = "closing"
 
             else:    
                 self.elevator.addFloor(event)

@@ -110,6 +110,15 @@ class Elevator(object):
             if self.dest in self.call_queue:
                 self.building.floor_list[self.dest].upTurnOff()
                 self.building.floor_list[self.dest].downTurnOff()
+
+                panel = self.building.panel_list[self.name]
+                if self.dest==0:
+                    panel.canvas.itemconfig(panel.button_list[9], fill="#888")
+                    panel.flag_list[9] = False
+                else:
+                    panel.canvas.itemconfig(panel.button_list[self.dest-1], fill="#888")
+                    panel.flag_list[self.dest-1] = False
+
                 self.call_queue.remove(self.dest)
 
             self.status = "opening"
