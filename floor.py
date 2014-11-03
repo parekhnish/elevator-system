@@ -7,6 +7,8 @@ class Floor(object):
         self.canvas = canvas
         self.display_up = display_up
         self.display_down = display_down
+        self.elevator_up = None
+        self.elevator_down = None
         self.up_button = canvas.create_polygon( 100,(10-name)*60 + 10 , 83,60*(10-name) + 30 , 117,60*(10-name) + 30 , fill="#000")
         self.down_button = canvas.create_polygon( 133,(10-name)*60 + 10, 167,(10-name)*60 + 10 , 150,60*(10-name) + 30, fill="#000")
         self.up_status = "off"

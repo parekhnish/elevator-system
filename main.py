@@ -80,12 +80,29 @@ class Application:
                 print "SAME_FLOOR_ELEVATOR" + str(e.name)
                 return
 
-        # Elevator is stationary, and is nearest to request
+        # Elevator is idle, and is nearest to request
         min_dist = 10
         assign_elevator = None
 
         for e in self.elevator_list:
-            if (e.status=="idle" or e.status=="closing" or e.status=="open" or e.status=="opening"):
+            if (e.status=="idle"):
+                if abs(e.current_floor - floor) < min_dist:
+                    print min_dist
+                    print abs(e.current_floor - floor)
+                    assign_elevator = e
+                    min_dist = abs(e.current_floor - floor)
+
+        if not(assign_elevator == None):
+            assign_elevator.addFloor(floor,direction)
+            print "IDLE_ELEVATOR" + str(e.name)
+            return
+
+        # Elevator is open, and nearest to request
+        min_dist = 10
+        assign_elevator = None
+
+        for e in self.elevator_list:
+            if (e.status=="opening" or e.status=="open" or e.status=="closing"):
                 if abs(e.current_floor - floor) < min_dist:
                     print min_dist
                     print abs(e.current_floor - floor)
