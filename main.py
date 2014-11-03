@@ -67,6 +67,9 @@ class Application:
         for e in self.elevator_list:
             e.update(self.building)
 
+        for f in self.floor_list:
+            f.updateDisplay()
+
         self.master.after(40,self.simulate)
 
         #print "Called simulate!"

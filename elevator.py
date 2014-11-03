@@ -35,7 +35,12 @@ class Elevator(object):
     def addFloor(self,floor,direction):
 
         self.call_queue.append([floor,direction])
-        #print "Called addFloor!"
+
+        if direction=="up":
+            self.building.floor_list[floor].elevator_up = self
+        else:
+            self.building.floor_list[floor].elevator_down = self
+
         print self.call_queue
 
     def update(self,canvas):
@@ -112,9 +117,11 @@ class Elevator(object):
             if (([self.dest,"up"] in self.call_queue) or ([self.dest,"down"] in self.call_queue)):
                 if [self.dest,"up"] in self.call_queue:
                     self.building.floor_list[self.dest].upTurnOff()
+                    self.building.floor_list[self.dest].elevator_up = None
 
                 elif [self.dest,"down"] in self.call_queue:
                     self.building.floor_list[self.dest].downTurnOff()
+                    self.building.floor_list[self.dest].elevator_down = None
 
 
                 panel = self.building.panel_list[self.name]
