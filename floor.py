@@ -4,14 +4,17 @@ class Floor(object):
 
     def __init__(self,canvas,app,name,display_up,display_down):
 
+        self.TEXT_OFFSET = 15
+
         self.app = app
         self.name = name
         self.canvas = canvas
 
-        self.display_up = display_up
-        self.display_down = display_down
-        self.display_up_text = canvas.create_text(35 , 60+((9-self.name)*60) , anchor="nw")
-        self.display_down_text = canvas.create_text(175, 60+((9-self.name)*60) , anchor="nw")
+
+        self.display_up = canvas.create_rectangle(35,60+((9-self.name)*60),75,100+((9-self.name)*60))
+        self.display_down = canvas.create_rectangle(175,60+((9-self.name)*60),215,100+((9-self.name)*60))
+        self.display_up_text = canvas.create_text(35 + self.TEXT_OFFSET, 60+((9-self.name)*60) + self.TEXT_OFFSET, anchor="nw")
+        self.display_down_text = canvas.create_text(175 + self.TEXT_OFFSET, 60+((9-self.name)*60) + self.TEXT_OFFSET, anchor="nw")
         self.display_up_value = '***'
         self.display_down_value = '***'
 
@@ -76,4 +79,14 @@ class Floor(object):
 
         self.canvas.itemconfigure(self.display_up_text, text=self.display_up_value)
         self.canvas.itemconfigure(self.display_down_text, text=self.display_down_value)
+
+        if self.elevator_up==None:
+            self.canvas.itemconfig(self.display_up, fill="#FFF")
+        else:
+            self.canvas.itemconfig(self.display_up, fill="#FE8")
+
+        if self.elevator_down==None:
+            self.canvas.itemconfig(self.display_down, fill="#FFF")
+        else:
+            self.canvas.itemconfig(self.display_down, fill="#FE8")
 
