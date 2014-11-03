@@ -43,6 +43,8 @@ class Elevator(object):
 
         print self.call_queue
 
+        #if self.move_status == "up":
+
     def update(self,canvas):
 
         if self.status == "idle":
