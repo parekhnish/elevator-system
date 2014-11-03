@@ -56,8 +56,15 @@ class Application:
         self.floor_list = []
 
         for i in range(0,10):
-            display_up = canvas.create_rectangle(35,60+(i*60),75,100+(i*60))    
-            display_down = canvas.create_rectangle(175,60+(i*60),215,100+(i*60))    
+            display_up   = canvas.create_rectangle(35,60+(i*60),75,100+(i*60))    
+            display_down = canvas.create_rectangle(175,60+(i*60),215,100+(i*60))
+            #canvas.create_rectangle(240,50+(i*60),660,110+(i*60))
+            
+            if i == 9:
+                canvas.create_text(720,80 + (i*60),font="Arial 20 bold", text = "Floor G")
+            else:
+                canvas.create_text(720,80 + (i*60),font="Arial 20 bold", text = "Floor " + str(10-i-1))
+            
             f = Floor(canvas, self, i, display_up,display_down)
             self.floor_list.append(f)
  
