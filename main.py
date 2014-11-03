@@ -127,6 +127,8 @@ class Application:
             print "OPPOSITE_DIRECTION_ELEVATOR" + str(e.name)
             return
 
+    
+
         
 master = Tk()
 app = Application(master)
