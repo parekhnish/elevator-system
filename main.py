@@ -70,11 +70,11 @@ class Application:
 
         #print "Called simulate!"
 
-    def floorRequest(self,floor,dir):
+    def floorRequest(self,floor,direction):
         
         for e in self.elevator_list:
             if (e.status=="idle"):
-                e.addFloor(floor)
+                e.addFloor(floor,direction)
                 break
 
         #print "Called floorRequest!"

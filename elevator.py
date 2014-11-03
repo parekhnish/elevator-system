@@ -32,9 +32,9 @@ class Elevator(object):
         self.current_floor = 9
         self.vel = 0
 
-    def addFloor(self,floor):
+    def addFloor(self,floor,direction):
 
-        self.call_queue.append(floor)
+        self.call_queue.append([floor,direction])
         #print "Called addFloor!"
         print self.call_queue
 
@@ -76,7 +76,7 @@ class Elevator(object):
             self.move_status = "idle"
 
         if self.move_status=="idle" and len(self.call_queue)!=0:
-            self.dest = self.call_queue[0]
+            self.dest = self.call_queue[0][0]
             if(self.current_floor < self.dest):
                 self.vel = -self.ELEVATOR_VELOCITY
                 self.move_status = "down"
@@ -87,7 +87,7 @@ class Elevator(object):
     def checkQueue(self):
 
         if not(len(self.call_queue)==0):
-            self.dest = self.call_queue[0]
+            self.dest = self.call_queue[0][0]
             if self.status == "idle":
                 if self.current_floor < self.dest:
                     self.vel = -self.ELEVATOR_VELOCITY
@@ -100,16 +100,22 @@ class Elevator(object):
 
     def checkDest(self):
 
-        if((self.y+10)%60==0):
-            self.current_floor = 10 - (self.y+10)/60
-        else:
-            self.current_floor = None
+        # if((self.y+10)%60==0):
+        #     self.current_floor = 10 - (self.y+10)/60
+        # else:
+        #     self.current_floor = None
+
+        self.current_floor = float(10 - float((self.y+10)/60))
 
         if self.dest == self.current_floor:
 
-            if self.dest in self.call_queue:
-                self.building.floor_list[self.dest].upTurnOff()
-                self.building.floor_list[self.dest].downTurnOff()
+            if (([self.dest,"up"] in self.call_queue) or ([self.dest,"down"] in self.call_queue)):
+                if [self.dest,"up"] in self.call_queue:
+                    self.building.floor_list[self.dest].upTurnOff()
+
+                elif [self.dest,"down"] in self.call_queue:
+                    self.building.floor_list[self.dest].downTurnOff()
+
 
                 panel = self.building.panel_list[self.name]
                 if self.dest==0:
@@ -119,7 +125,11 @@ class Elevator(object):
                     panel.canvas.itemconfig(panel.button_list[self.dest-1], fill="#888")
                     panel.flag_list[self.dest-1] = False
 
-                self.call_queue.remove(self.dest)
+                if [self.dest,"up"] in self.call_queue:
+                    self.call_queue.remove([self.dest,"up"])
+                elif [self.dest,"down"] in self.call_queue:
+                    self.call_queue.remove([self.dest,"down"])
+
 
             self.status = "opening"
             self.vel = 0

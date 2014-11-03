@@ -189,7 +189,7 @@ class Panel(object):
             
             if event == 'G' or event == '<' or event == '>':
                 if event == 'G':
-                    self.elevator.addFloor(0)
+                    self.elevator.addFloor([0,"down"])
                 
                 elif event == '>':
                     if self.elevator.status == "closing" or self.elevator.status == "idle":
@@ -198,53 +198,58 @@ class Panel(object):
                     if self.elevator.status == "opening" or self.elevator.status == "open":
                         self.elevator.status = "closing"
 
-            else:    
-                self.elevator.addFloor(event)
+            else:
+                if self.elevator.current_floor > event:
+                    self.elevator.addFloor([event,"down"])
+                else:
+                    self.elevator.addFloor([event,"up"])
 
             if event == 'G':
                 self.canvas.itemconfig(self.button_list[9], fill="#ff0")
                 self.flag_list[9] = True
            
-            elif event == '<':
-                self.canvas.itemconfig(self.button_list[10], fill="#ff0")
-                self.flag_list[10] = True
+            # elif event == '<':
+            #     self.canvas.itemconfig(self.button_list[10], fill="#ff0")
+            #     # self.flag_list[10] = True
+            #     self.canvas.itemconfig(self.button_list[10], fill="#888")
             
-            elif event == '>':
-                self.canvas.itemconfig(self.button_list[11], fill="#ff0")  
-                self.flag_list[11] = True
+            # elif event == '>':
+            #     self.canvas.itemconfig(self.button_list[11], fill="#ff0")  
+            #     # self.flag_list[11] = True
+            #     self.canvas.itemconfig(self.button_list[11], fill="#888")
 
-            else:    
+            elif not(event == '>') and not(event == '<'):    
                 self.canvas.itemconfig(self.button_list[event-1], fill="#ff0")
                 self.flag_list[event-1] = True
 
-        else:
+        # else:
 
-            if event == 'G' or event == '<' or event == '>':
-                if event == 'G':
-                    temp = 0
-                    if temp in self.elevator.call_queue:
-                        self.elevator.call_queue.remove(0)
+        #     if event == 'G' or event == '<' or event == '>':
+        #         if event == 'G':
+        #             temp = 0
+        #             if temp in self.elevator.call_queue:
+        #                 self.elevator.call_queue.remove(0)
 
-            else:
-                if event in self.elevator.call_queue:
-                    self.elevator.call_queue.remove(event)        
+        #     else:
+        #         if event in self.elevator.call_queue:
+        #             self.elevator.call_queue.remove(event)        
             
 
-            if event == 'G':
-                self.canvas.itemconfig(self.button_list[9], fill="#888")
-                self.flag_list[9] = False
+        #     if event == 'G':
+        #         self.canvas.itemconfig(self.button_list[9], fill="#888")
+        #         self.flag_list[9] = False
            
-            elif event == '<':
-                self.canvas.itemconfig(self.button_list[10], fill="#888")
-                self.flag_list[10] = False
+        #     elif event == '<':
+        #         self.canvas.itemconfig(self.button_list[10], fill="#888")
+        #         self.flag_list[10] = False
             
-            elif event == '>':
-                self.canvas.itemconfig(self.button_list[11], fill="#888")  
-                self.flag_list[11] = False
+        #     elif event == '>':
+        #         self.canvas.itemconfig(self.button_list[11], fill="#888")  
+        #         self.flag_list[11] = False
 
-            else:    
-                self.canvas.itemconfig(self.button_list[event-1], fill="#888")
-                self.flag_list[event-1] = False
+        #     else:    
+        #         self.canvas.itemconfig(self.button_list[event-1], fill="#888")
+        #         self.flag_list[event-1] = False
 
         
         
