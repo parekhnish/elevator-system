@@ -72,13 +72,61 @@ class Application:
         #print "Called simulate!"
 
     def floorRequest(self,floor,direction):
-        
-        for e in self.elevator_list:
-            if (e.status=="idle"):
-                e.addFloor(floor,direction)
-                break
 
-        #print "Called floorRequest!"
+        # Elevator is on SAME FLOOR as request
+        for e in self.elevator_list:
+            if (e.current_floor == floor):
+                e.addFloor(floor,direction)
+                print "SAME_FLOOR_ELEVATOR" + str(e.name)
+                return
+
+        # Elevator is stationary, and is nearest to request
+        min_dist = 10
+        assign_elevator = None
+
+        for e in self.elevator_list:
+            if (e.status=="idle" or e.status=="closing" or e.status=="open" or e.status=="opening"):
+                if abs(e.current_floor - floor) < min_dist:
+                    print min_dist
+                    print abs(e.current_floor - floor)
+                    assign_elevator = e
+                    min_dist = abs(e.current_floor - floor)
+
+        if not(assign_elevator == None):
+            assign_elevator.addFloor(floor,direction)
+            print "STATIONARY_ELEVATOR" + str(e.name)
+            return
+
+        # Elevator is moving same direction as request, and is nearest to request
+        min_dist = 10
+        assign_elevator = None
+
+        for e in self.elevator_list:
+            if (e.status=="moving" and e.move_status == direction):
+                if abs(e.current_floor - floor) < min_dist:
+                    assign_elevator = e
+                    min_dist = abs(e.current_floor - floor)
+
+        if not(assign_elevator == None):
+            assign_elevator.addFloor(floor,direction)
+            print "SAME_DIRECTION_ELEVATOR" + str(e.name)
+            return
+
+
+        # Elevator is moving in opposite direction, and its destination is nearest to request
+        min_dist = 20
+        assign_elevator = None
+        for e in self.elevator_list:
+            if (e.status=="moving"):
+                if (abs(e.current_floor - e.dest) + abs(e.dest - floor)) < min_dist:
+                    assign_elevator = e
+                    min_dist = (abs(e.current_floor - e.dest) + abs(e.dest - floor))
+
+        if not(assign_elevator == None):
+            assign_elevator.addFloor(floor,direction)
+            print "OPPOSITE_DIRECTION_ELEVATOR" + str(e.name)
+            return
+
         
 master = Tk()
 app = Application(master)
