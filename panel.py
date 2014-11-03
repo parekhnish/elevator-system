@@ -189,7 +189,7 @@ class Panel(object):
             
             if event == 'G' or event == '<' or event == '>':
                 if event == 'G':
-                    self.elevator.addFloor([0,"down"])
+                    self.elevator.addFloor(0,"down")
                 
                 elif event == '>':
                     if self.elevator.status == "closing" or self.elevator.status == "idle":
@@ -200,9 +200,9 @@ class Panel(object):
 
             else:
                 if self.elevator.current_floor > event:
-                    self.elevator.addFloor([event,"down"])
+                    self.elevator.addFloor(event,"down")
                 else:
-                    self.elevator.addFloor([event,"up"])
+                    self.elevator.addFloor(event,"up")
 
             if event == 'G':
                 self.canvas.itemconfig(self.button_list[9], fill="#ff0")
