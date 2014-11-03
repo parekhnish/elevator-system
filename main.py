@@ -56,8 +56,9 @@ class Application:
         self.floor_list = []
 
         for i in range(0,10):
-            display = canvas.create_rectangle(700,60+(i*60),750,100+(i*60))    
-            f = Floor(canvas, self, i, display)
+            display_up = canvas.create_rectangle(35,60+(i*60),75,100+(i*60))    
+            display_down = canvas.create_rectangle(175,60+(i*60),215,100+(i*60))    
+            f = Floor(canvas, self, i, display_up,display_down)
             self.floor_list.append(f)
  
 

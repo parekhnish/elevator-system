@@ -1,11 +1,12 @@
 class Floor(object):
 
-    def __init__(self,canvas,app,name,display):
+    def __init__(self,canvas,app,name,display_up,display_down):
 
         self.app = app
         self.name = name
         self.canvas = canvas
-        self.display = display
+        self.display_up = display_up
+        self.display_down = display_down
         self.up_button = canvas.create_polygon( 100,(10-name)*60 + 10 , 83,60*(10-name) + 30 , 117,60*(10-name) + 30 , fill="#000")
         self.down_button = canvas.create_polygon( 133,(10-name)*60 + 10, 167,(10-name)*60 + 10 , 150,60*(10-name) + 30, fill="#000")
         self.up_status = "off"
