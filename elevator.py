@@ -49,12 +49,14 @@ class Elevator(object):
                 self.call_queue.append([floor,direction])
 
 
-        elif self.status == "idle":
+        elif self.status == "idle" or "opening" or "open" or "closing":
             if (len(self.call_queue)==0):
                 self.call_queue.append([floor,direction])
             else:
                 if (self.current_floor < floor and self.call_queue[0][0] > floor) or (self.current_floor > floor and self.call_queue[0][0] < floor):
                     self.call_queue.insert(0,[floor,direction])
+                else:
+                    self.call_queue.append([floor,direction])
 
 
         if type=="floor_call":
