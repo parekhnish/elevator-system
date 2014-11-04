@@ -10,6 +10,7 @@ class Elevator(object):
         self.ELEVATOR_VELOCITY = 5
         self.ELEVATOR_COLOR = "#222"
         self.DOOR_COLOR = "#FE8"
+        self.PEOPLE_MAX = 10
 
         self.building = building
         self.name = name
@@ -18,7 +19,8 @@ class Elevator(object):
         self.x = canvas.coords(self.body)[0]
         self.y = canvas.coords(self.body)[1]
         self.dest = None
-
+        self.people = 0
+        
         self.floor_list = []
         for i in range(0,10):
             self.floor_list.append(False)

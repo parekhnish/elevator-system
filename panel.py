@@ -74,7 +74,7 @@ class Panel(object):
         self.button_list = []
         self.flag_list   = []
 
-        for i in range(0,12):
+        for i in range(0,14):
             self.flag_list.append(False)
 #----------------------------------------------------------------------------------------------------
         #BUTTON 1
@@ -183,11 +183,29 @@ class Panel(object):
         canvas.tag_bind(self.button_12, '<Button-1>', lambda x: self.foo('>',self.flag_list[11]))
         self.button_list.append(self.button_12)
 #-----------------------------------------------------------------------------------------------------------
+        #BUTTON +
+        self.button_13    = canvas.create_rectangle(self.BUTTON_START_X,self.BUTTON_START_Y - self.BUTTON_GAP_Y,self.BUTTON_START_X + self.BUTTON_LENGTH,self.BUTTON_START_Y + self.BUTTON_LENGTH - self.BUTTON_GAP_Y,fill="#888")
+        self.button_13_id = canvas.create_text(self.BUTTON_START_X + self.TEXT_OFFSET, self.BUTTON_START_Y + self.TEXT_OFFSET - self.BUTTON_GAP_Y, anchor="nw")
+        
+        canvas.itemconfig(self.button_13_id, text="+")
+        canvas.tag_bind(self.button_13, '<Button-1>', lambda x: self.foo('+',self.flag_list[12]))
+        
+        self.button_list.append(self.button_13)
+#------------------------------------------------------------------------------------------------------------    
+        #BUTTON -
+        self.button_14    = canvas.create_rectangle(self.BUTTON_START_X + 2*self.BUTTON_GAP_X,self.BUTTON_START_Y - self.BUTTON_GAP_Y,self.BUTTON_START_X + self.BUTTON_LENGTH + 2*self.BUTTON_GAP_X,self.BUTTON_START_Y + self.BUTTON_LENGTH - self.BUTTON_GAP_Y,fill="#888")
+        self.button_14_id = canvas.create_text(self.BUTTON_START_X + 2*self.BUTTON_GAP_X + self.TEXT_OFFSET, self.BUTTON_START_Y + self.TEXT_OFFSET - self.BUTTON_GAP_Y, anchor="nw")
+        
+        canvas.itemconfig(self.button_14_id, text="-")
+        canvas.tag_bind(self.button_14, '<Button-1>', lambda x: self.foo('-',self.flag_list[13]))
+  
+        self.button_list.append(self.button_14)
+
     def foo(self,event,flag):
 
         if flag == False:
             
-            if event == 'G' or event == '<' or event == '>':
+            if event == 'G' or event == '<' or event == '>' or event == '+' or event == '-':
                 if event == 'G':
                     self.elevator.addFloor(0,"down","panel_call")
                 
@@ -197,6 +215,16 @@ class Panel(object):
                 elif event == '<':
                     if self.elevator.status == "opening" or self.elevator.status == "open":
                         self.elevator.status = "closing"
+                elif event == '+':
+                    if self.elevator.status == "open" or self.elevator.status == "closing" or self.elevator.status == "opening":
+                        if self.elevator.people < self.elevator.PEOPLE_MAX:
+                            self.elevator.people += 1
+                elif event == '-':
+                    if self.elevator.status == "open" or self.elevator.status == "closing" or self.elevator.status == "opening":
+                        if self.elevator.people > 0:
+                            self.elevator.people -= 1
+                    
+                print self.elevator.people 
 
             else:
                 if self.elevator.current_floor > event:
@@ -218,7 +246,7 @@ class Panel(object):
             #     # self.flag_list[11] = True
             #     self.canvas.itemconfig(self.button_list[11], fill="#888")
 
-            elif not(event == '>') and not(event == '<'):    
+            elif not(event == '>') and not(event == '<') and not(event == '+') and not(event == '-'):    
                 self.canvas.itemconfig(self.button_list[event-1], fill="#ff0")
                 self.flag_list[event-1] = True
 
