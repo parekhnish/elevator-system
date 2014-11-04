@@ -48,6 +48,14 @@ class Elevator(object):
             else:
                 self.building.floor_list[int(self.current_floor)].downTurnOff()
 
+            panel = self.building.panel_list[self.name]
+            if int(self.current_floor)==0:
+                panel.canvas.itemconfig(panel.button_list[9], fill="#888")
+                panel.flag_list[9] = False
+            else:
+                panel.canvas.itemconfig(panel.button_list[int(self.current_floor)-1], fill="#888")
+                panel.flag_list[self.dest-1] = False
+
             if self.status == "idle":
                 self.status = "opening"
             elif self.status == "closing":
@@ -57,14 +65,14 @@ class Elevator(object):
 
 
         elif self.status == "moving":
-            if (self.current_floor < floor and self.dest > floor) or (self.current_floor > floor and self.dest < floor):
+            if (self.current_floor < floor and self.dest > floor and direction=="up") or (self.current_floor > floor and self.dest < floor and direction=="down"):
                 self.call_queue.insert(0,[floor,direction])
             else:
                 flag = 0
                 for i in range(1,len(self.call_queue)):
                     previous = self.call_queue[i-1][0]
                     next = self.call_queue[i][0]
-                    if (previous < floor and next > floor) or (previous > floor and next < floor):
+                    if (previous < floor and next > floor and direction=="up") or (previous > floor and next < floor and direction=="down"):
                         flag = 1
                         self.call_queue.insert(i,[floor,direction])
                         break
@@ -77,14 +85,14 @@ class Elevator(object):
             if (len(self.call_queue)==0):
                 self.call_queue.append([floor,direction])
             else:
-                if (self.current_floor < floor and self.call_queue[0][0] > floor) or (self.current_floor > floor and self.call_queue[0][0] < floor):
+                if (self.current_floor < floor and self.call_queue[0][0] > floor and direction=="up") or (self.current_floor > floor and self.call_queue[0][0] < floor and direction=="down"):
                     self.call_queue.insert(0,[floor,direction])
                 else:
                     flag = 0
                     for i in range(1,len(self.call_queue)):
                         previous = self.call_queue[i-1][0]
                         next = self.call_queue[i][0]
-                        if (previous < floor and next > floor) or (previous > floor and next < floor):
+                        if (previous < floor and next > floor and direction=="up") or (previous > floor and next < floor and direction=="down"):
                             flag = 1
                             self.call_queue.insert(i,[floor,direction])
                             break

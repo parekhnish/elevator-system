@@ -214,6 +214,16 @@ class Panel(object):
 
         if flag == False:
             
+            if event == 'G':
+                self.canvas.itemconfig(self.button_list[9], fill="#ff0")
+                self.flag_list[9] = True
+
+            elif not(event == '>') and not(event == '<') and not(event == '+') and not(event == '-'):    
+                self.canvas.itemconfig(self.button_list[event-1], fill="#ff0")
+                self.flag_list[event-1] = True
+
+                
+
             if event == 'G' or event == '<' or event == '>' or event == '+' or event == '-':
                 if event == 'G':
                     self.elevator.addFloor(0,"down","panel_call")
@@ -245,14 +255,7 @@ class Panel(object):
                 else:
                     self.elevator.addFloor(event,"up","panel_call")
 
-            if event == 'G':
-                self.canvas.itemconfig(self.button_list[9], fill="#ff0")
-                self.flag_list[9] = True
-                
-
-            elif not(event == '>') and not(event == '<') and not(event == '+') and not(event == '-'):    
-                self.canvas.itemconfig(self.button_list[event-1], fill="#ff0")
-                self.flag_list[event-1] = True
+            
 
         
 
