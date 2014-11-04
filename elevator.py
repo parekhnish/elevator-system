@@ -13,8 +13,8 @@ class Elevator(object):
 
         self.building = building
         self.name = name
-        self.body = canvas.create_rectangle(self.ELEVATOR_START_X+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y,self.ELEVATOR_START_X+self.ELEVATOR_WIDTH+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y+self.ELEVATOR_HEIGHT,fill=self.ELEVATOR_COLOR)
-        self.door = canvas.create_rectangle(self.ELEVATOR_START_X+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y,self.ELEVATOR_START_X+        1          +(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y+self.ELEVATOR_HEIGHT,fill=self.DOOR_COLOR)
+        self.body = canvas.create_rectangle(self.ELEVATOR_START_X+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y + 9*self.ELEVATOR_HEIGHT,self.ELEVATOR_START_X+self.ELEVATOR_WIDTH+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y + 10*self.ELEVATOR_HEIGHT,fill=self.ELEVATOR_COLOR)
+        self.door = canvas.create_rectangle(self.ELEVATOR_START_X+(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y + 9*self.ELEVATOR_HEIGHT,self.ELEVATOR_START_X+        1          +(self.name*self.ELEVATOR_SEPARATION),self.ELEVATOR_START_Y + 10*self.ELEVATOR_HEIGHT,fill=self.DOOR_COLOR)
         self.x = canvas.coords(self.body)[0]
         self.y = canvas.coords(self.body)[1]
         self.dest = None
@@ -29,7 +29,7 @@ class Elevator(object):
         self.open_status = 0
         self.move_status = "idle"
         self.status = "idle"
-        self.current_floor = 9
+        self.current_floor = 0
         self.vel = 0
 
     def addFloor(self,floor,direction):
