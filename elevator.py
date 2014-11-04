@@ -34,7 +34,28 @@ class Elevator(object):
 
     def addFloor(self,floor,direction,type):
 
-        self.call_queue.append([floor,direction])
+
+        if floor == self.current_floor:
+            if self.status == "closing":
+                self.status = "opening"
+            elif self.status == "open":
+                self.open_status -= 50
+
+
+        elif self.status == "moving":
+            if (self.current_floor < floor and self.dest > floor) or (self.current_floor > floor and self.dest < floor):
+                self.call_queue.insert(0,[floor,direction])
+            else:
+                self.call_queue.append([floor,direction])
+
+
+        elif self.status == "idle":
+            if (len(self.call_queue)==0):
+                self.call_queue.append([floor,direction])
+            else:
+                if (self.current_floor < floor and self.call_queue[0][0] > floor) or (self.current_floor > floor and self.call_queue[0][0] < floor):
+                    self.call_queue.insert(0,[floor,direction])
+
 
         if type=="floor_call":
             if direction=="up":

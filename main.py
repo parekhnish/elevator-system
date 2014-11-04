@@ -151,7 +151,7 @@ class Application:
                     min_dist = abs(e.current_floor - floor)
 
         if not(assign_elevator == None):
-            assign_elevator.addFloor(floor,direction)
+            assign_elevator.addFloor(floor,direction,"floor_call")
             print "SAME_DIRECTION_ELEVATOR" + str(e.name)
             return
 
