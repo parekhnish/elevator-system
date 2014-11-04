@@ -46,7 +46,17 @@ class Elevator(object):
             if (self.current_floor < floor and self.dest > floor) or (self.current_floor > floor and self.dest < floor):
                 self.call_queue.insert(0,[floor,direction])
             else:
-                self.call_queue.append([floor,direction])
+                flag = 0
+                for i in range(1,len(self.call_queue)):
+                    previous = self.call_queue[i-1][0]
+                    next = self.call_queue[i][0]
+                    if (previous < floor and next > floor) or (previous > floor and next < floor):
+                        flag = 1
+                        self.call_queue.insert(i,[floor,direction])
+                        break
+
+                if flag == 0:
+                    self.call_queue.append([floor,direction])
 
 
         elif self.status == "idle" or "opening" or "open" or "closing":
@@ -56,7 +66,17 @@ class Elevator(object):
                 if (self.current_floor < floor and self.call_queue[0][0] > floor) or (self.current_floor > floor and self.call_queue[0][0] < floor):
                     self.call_queue.insert(0,[floor,direction])
                 else:
-                    self.call_queue.append([floor,direction])
+                    flag = 0
+                    for i in range(1,len(self.call_queue)):
+                        previous = self.call_queue[i-1][0]
+                        next = self.call_queue[i][0]
+                        if (previous < floor and next > floor) or (previous > floor and next < floor):
+                            flag = 1
+                            self.call_queue.insert(i,[floor,direction])
+                            break
+
+                    if flag == 0:
+                        self.call_queue.append([floor,direction])
 
 
         if type=="floor_call":
