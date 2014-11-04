@@ -74,7 +74,7 @@ class Panel(object):
         self.button_list = []
         self.flag_list   = []
 
-        for i in range(0,14):
+        for i in range(0,15):
             self.flag_list.append(False)
 #----------------------------------------------------------------------------------------------------
         #BUTTON 1
@@ -200,7 +200,16 @@ class Panel(object):
         canvas.tag_bind(self.button_14, '<Button-1>', lambda x: self.foo('-',self.flag_list[13]))
   
         self.button_list.append(self.button_14)
-
+#------------------------------------------------------------------------------------------------------------    
+        #BUTTON SHOWING PEOPLE COUNT
+        self.button_15    = canvas.create_rectangle(self.BUTTON_START_X + self.BUTTON_GAP_X,self.BUTTON_START_Y - self.BUTTON_GAP_Y,self.BUTTON_START_X + self.BUTTON_LENGTH + self.BUTTON_GAP_X,self.BUTTON_START_Y + self.BUTTON_LENGTH - self.BUTTON_GAP_Y,fill="#888")
+        self.button_15_id = canvas.create_text(self.BUTTON_START_X + self.BUTTON_GAP_X + self.TEXT_OFFSET, self.BUTTON_START_Y + self.TEXT_OFFSET - self.BUTTON_GAP_Y, anchor="nw")
+        
+        canvas.itemconfig(self.button_15_id, text = str(self.elevator.people))
+        #canvas.tag_bind(self.button_15, '<Button-1>', lambda x: self.foo('C',self.flag_list[14]))
+        
+        self.button_list.append(self.button_15)
+#------------------------------------------------------------------------------------------------------------
     def foo(self,event,flag):
 
         if flag == False:
@@ -219,10 +228,14 @@ class Panel(object):
                     if self.elevator.status == "open" or self.elevator.status == "closing" or self.elevator.status == "opening":
                         if self.elevator.people < self.elevator.PEOPLE_MAX:
                             self.elevator.people += 1
+                            self.canvas.itemconfig(self.button_15_id, text = str(self.elevator.people))
+        
                 elif event == '-':
                     if self.elevator.status == "open" or self.elevator.status == "closing" or self.elevator.status == "opening":
                         if self.elevator.people > 0:
                             self.elevator.people -= 1
+                            self.canvas.itemconfig(self.button_15_id, text = str(self.elevator.people))
+        
                     
                 print self.elevator.people 
 

@@ -66,7 +66,7 @@ class Application:
                 #canvas.create_rectangle(532,50+(i*60),619,110+(i*60),fill = "#fff")
                 
                 #Floor Color
-                canvas.create_rectangle(670,50+(i*60),770,110+(i*60),fill = "#fff")
+                #canvas.create_rectangle(670,50+(i*60),770,110+(i*60),fill = "#fff")
                 
                 #Floor Name
                 canvas.create_text(720,80 + (i*60),font="Arial 20 bold", text = "Floor G")
@@ -76,7 +76,7 @@ class Application:
                 #canvas.create_rectangle(532,50+(i*60),619,110+(i*60),fill = self.color_list[8-i])
                 
                 #Floor Color
-                canvas.create_rectangle(670,50+(i*60),770,110+(i*60),fill = self.color_list[8-i])
+                #canvas.create_rectangle(670,50+(i*60),770,110+(i*60),fill = self.color_list[8-i])
                 
                 #Floor Name
                 canvas.create_text(720,80 + (i*60),font="Arial 20 bold", text = "Floor " + str(10-i-1))
