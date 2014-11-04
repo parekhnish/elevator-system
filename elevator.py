@@ -38,7 +38,19 @@ class Elevator(object):
 
 
         if floor == self.current_floor:
-            if self.status == "closing":
+            # if len(self.call_queue)==0:
+            #     self.call_queue.append([floor,direction])
+            # else:
+            #     self.call_queue.insert(0,[floor,direction])
+
+            if direction == "up":
+                self.building.floor_list[int(self.current_floor)].upTurnOff()
+            else:
+                self.building.floor_list[int(self.current_floor)].downTurnOff()
+
+            if self.status == "idle":
+                self.status = "opening"
+            elif self.status == "closing":
                 self.status = "opening"
             elif self.status == "open":
                 self.open_status -= 50
@@ -61,7 +73,7 @@ class Elevator(object):
                     self.call_queue.append([floor,direction])
 
 
-        elif self.status == "idle" or "opening" or "open" or "closing":
+        elif self.status == "idle" or "opening" or "open" or "closing" and not(floor==self.current_floor):
             if (len(self.call_queue)==0):
                 self.call_queue.append([floor,direction])
             else:
@@ -81,7 +93,7 @@ class Elevator(object):
                         self.call_queue.append([floor,direction])
 
 
-        if type=="floor_call":
+        if type=="floor_call" and not(floor==self.current_floor):
             if direction=="up":
                 self.building.floor_list[floor].elevator_up = self
             else:
@@ -110,33 +122,10 @@ class Elevator(object):
         elif self.status == "closing":
             self.closeDoor(canvas)
         
-        # canvas.move(self.body,0,self.vel)
-        # self.x = canvas.coords(self.body)[0]
-        # self.y = canvas.coords(self.body)[1]
-        # if self.y >= 590:
-        #     self.vel = 0
-        #     canvas.itemconfigure(self.body,fill="#ff4")
 
         canvas.update()
 
-    def checkMoveStatus(self):
-
-        if(self.vel>0):
-            self.move_status = "down"
-        elif(self.vel<0):
-            self.move_status = "up"
-        else:
-            self.move_status = "idle"
-
-        if self.move_status=="idle" and len(self.call_queue)!=0:
-            self.dest = self.call_queue[0][0]
-            if(self.current_floor < self.dest):
-                self.vel = -self.ELEVATOR_VELOCITY
-                self.move_status = "down"
-            else:
-                self.vel = self.ELEVATOR_VELOCITY
-                self.move_status = "up"
-
+    
     def checkQueue(self):
 
         if not(len(self.call_queue)==0):
@@ -153,10 +142,6 @@ class Elevator(object):
 
     def checkDest(self):
 
-        # if((self.y+10)%60==0):
-        #     self.current_floor = 10 - (self.y+10)/60
-        # else:
-        #     self.current_floor = None
 
         self.current_floor = float(10 - float((self.y+10)/60))
 

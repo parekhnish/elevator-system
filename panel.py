@@ -248,49 +248,13 @@ class Panel(object):
             if event == 'G':
                 self.canvas.itemconfig(self.button_list[9], fill="#ff0")
                 self.flag_list[9] = True
-           
-            # elif event == '<':
-            #     self.canvas.itemconfig(self.button_list[10], fill="#ff0")
-            #     # self.flag_list[10] = True
-            #     self.canvas.itemconfig(self.button_list[10], fill="#888")
-            
-            # elif event == '>':
-            #     self.canvas.itemconfig(self.button_list[11], fill="#ff0")  
-            #     # self.flag_list[11] = True
-            #     self.canvas.itemconfig(self.button_list[11], fill="#888")
+                
 
             elif not(event == '>') and not(event == '<') and not(event == '+') and not(event == '-'):    
                 self.canvas.itemconfig(self.button_list[event-1], fill="#ff0")
                 self.flag_list[event-1] = True
 
-        # else:
-
-        #     if event == 'G' or event == '<' or event == '>':
-        #         if event == 'G':
-        #             temp = 0
-        #             if temp in self.elevator.call_queue:
-        #                 self.elevator.call_queue.remove(0)
-
-        #     else:
-        #         if event in self.elevator.call_queue:
-        #             self.elevator.call_queue.remove(event)        
-            
-
-        #     if event == 'G':
-        #         self.canvas.itemconfig(self.button_list[9], fill="#888")
-        #         self.flag_list[9] = False
-           
-        #     elif event == '<':
-        #         self.canvas.itemconfig(self.button_list[10], fill="#888")
-        #         self.flag_list[10] = False
-            
-        #     elif event == '>':
-        #         self.canvas.itemconfig(self.button_list[11], fill="#888")  
-        #         self.flag_list[11] = False
-
-        #     else:    
-        #         self.canvas.itemconfig(self.button_list[event-1], fill="#888")
-        #         self.flag_list[event-1] = False
+        
 
         
         

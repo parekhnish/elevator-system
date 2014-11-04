@@ -9,6 +9,10 @@ class Application:
 
         global building
 
+        self.TIME_DOOR = 25
+        self.TIME_FLOOR = 12
+        self.TIME_WAIT = 20
+
         self.master = master
         self.building = Canvas(master, width = 800, height = 700)
         self.building.pack(side=LEFT)
@@ -106,70 +110,65 @@ class Application:
                 print "SAME_FLOOR_ELEVATOR" + str(e.name)
                 return
 
-        # Elevator is idle, and is nearest to request
-        min_dist = 10
-        assign_elevator = None
-
+        score_list = []
         for e in self.elevator_list:
-            if (e.status=="idle"):
-                if abs(e.current_floor - floor) < min_dist:
-                    print min_dist
-                    print abs(e.current_floor - floor)
-                    assign_elevator = e
-                    min_dist = abs(e.current_floor - floor)
+            score_list.append(self.calculateScore(e,floor,direction))
 
-        if not(assign_elevator == None):
-            assign_elevator.addFloor(floor,direction,"floor_call")
-            print "IDLE_ELEVATOR" + str(e.name)
-            return
+        min_score = 10000000
+        min_position = 0
+        for i in range(0,4):
+            if score_list[i] < min_score:
+                min_position = i
+                min_score = score_list[i]
 
-        # Elevator is open, and nearest to request
-        min_dist = 10
-        assign_elevator = None
-
-        for e in self.elevator_list:
-            if (e.status=="opening" or e.status=="open" or e.status=="closing"):
-                if abs(e.current_floor - floor) < min_dist:
-                    print min_dist
-                    print abs(e.current_floor - floor)
-                    assign_elevator = e
-                    min_dist = abs(e.current_floor - floor)
-
-        if not(assign_elevator == None):
-            assign_elevator.addFloor(floor,direction,"floor_call")
-            print "STATIONARY_ELEVATOR" + str(e.name)
-            return
-
-        # Elevator is moving same direction as request, and is nearest to request
-        min_dist = 10
-        assign_elevator = None
-
-        for e in self.elevator_list:
-            if (e.status=="moving" and e.move_status == direction):
-                if abs(e.current_floor - floor) < min_dist:
-                    assign_elevator = e
-                    min_dist = abs(e.current_floor - floor)
-
-        if not(assign_elevator == None):
-            assign_elevator.addFloor(floor,direction,"floor_call")
-            print "SAME_DIRECTION_ELEVATOR" + str(e.name)
-            return
+        self.elevator_list[min_position].addFloor(floor,direction,"floor_call")
 
 
-        # Elevator is moving in opposite direction, and its destination is nearest to request
-        min_dist = 20
-        assign_elevator = None
-        for e in self.elevator_list:
-            if (e.status=="moving"):
-                if (abs(e.current_floor - e.dest) + abs(e.dest - floor)) < min_dist:
-                    assign_elevator = e
-                    min_dist = (abs(e.current_floor - e.dest) + abs(e.dest - floor))
+        
 
-        if not(assign_elevator == None):
-            assign_elevator.addFloor(floor,direction,"floor_call")
-            print "OPPOSITE_DIRECTION_ELEVATOR" + str(e.name)
-            return
+    def calculateScore(self,e,floor,direction):
 
+        score = 0
+
+        if e.status=="closing":
+            score += float(e.door_status/50)*self.TIME_DOOR
+
+        elif e.status=="open":
+            score += float((100-e.open_status)/100)*self.TIME_WAIT + self.TIME_DOOR
+
+        elif e.status=="opening":
+            score += float((50 - e.door_status)/50)*self.TIME_DOOR + self.TIME_WAIT + self.TIME_DOOR
+
+        
+
+
+        if len(e.call_queue)==0:
+            score += float(abs(e.current_floor - floor))*self.TIME_FLOOR
+
+        else:
+            if (e.current_floor < floor and e.dest >= floor and direction=="up") or (e.current_floor > floor and e.dest <= floor and direction=="down"):
+                score += float(abs(e.current_floor - floor)*self.TIME_FLOOR)
+            else:
+                score += float(abs(e.current_floor - e.dest)*self.TIME_FLOOR)
+
+                flag = 0
+                for i in range(1,len(e.call_queue)):
+                    previous = e.call_queue[i-1][0]
+                    next = e.call_queue[i][0]
+
+                    if (previous < floor and next >= floor and direction=="up") or (e.current_floor > floor and next <= floor and direction=="down"):
+                        score += float(abs(previous - floor)*self.TIME_FLOOR)
+                        flag = 1
+                        break
+                    else:
+                        score += float(abs(previous - next)*self.TIME_FLOOR)
+
+                if flag==0:
+                    score += float(abs(e.call_queue[len(e.call_queue)-1][0] - floor)*self.TIME_FLOOR)
+ 
+
+        print "Elevator" + str(e.name) + ' ----- ' + str(score)
+        return score
     
 
         
