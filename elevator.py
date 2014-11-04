@@ -32,14 +32,15 @@ class Elevator(object):
         self.current_floor = 0
         self.vel = 0
 
-    def addFloor(self,floor,direction):
+    def addFloor(self,floor,direction,type):
 
         self.call_queue.append([floor,direction])
 
-        if direction=="up":
-            self.building.floor_list[floor].elevator_up = self
-        else:
-            self.building.floor_list[floor].elevator_down = self
+        if type=="floor_call":
+            if direction=="up":
+                self.building.floor_list[floor].elevator_up = self
+            else:
+                self.building.floor_list[floor].elevator_down = self
 
         print self.call_queue
 

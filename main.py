@@ -102,7 +102,7 @@ class Application:
         # Elevator is on SAME FLOOR as request
         for e in self.elevator_list:
             if (e.current_floor == floor):
-                e.addFloor(floor,direction)
+                e.addFloor(floor,direction,"floor_call")
                 print "SAME_FLOOR_ELEVATOR" + str(e.name)
                 return
 
@@ -119,7 +119,7 @@ class Application:
                     min_dist = abs(e.current_floor - floor)
 
         if not(assign_elevator == None):
-            assign_elevator.addFloor(floor,direction)
+            assign_elevator.addFloor(floor,direction,"floor_call")
             print "IDLE_ELEVATOR" + str(e.name)
             return
 
@@ -136,7 +136,7 @@ class Application:
                     min_dist = abs(e.current_floor - floor)
 
         if not(assign_elevator == None):
-            assign_elevator.addFloor(floor,direction)
+            assign_elevator.addFloor(floor,direction,"floor_call")
             print "STATIONARY_ELEVATOR" + str(e.name)
             return
 
@@ -166,7 +166,7 @@ class Application:
                     min_dist = (abs(e.current_floor - e.dest) + abs(e.dest - floor))
 
         if not(assign_elevator == None):
-            assign_elevator.addFloor(floor,direction)
+            assign_elevator.addFloor(floor,direction,"floor_call")
             print "OPPOSITE_DIRECTION_ELEVATOR" + str(e.name)
             return
 
