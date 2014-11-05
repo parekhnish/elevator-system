@@ -146,25 +146,58 @@ class Application:
             score += float(abs(e.current_floor - floor))*self.TIME_FLOOR
 
         else:
-            if (e.current_floor < floor and e.dest >= floor and direction=="up") or (e.current_floor > floor and e.dest <= floor and direction=="down"):
-                score += float(abs(e.current_floor - floor)*self.TIME_FLOOR)
+            if e.status=="opening" or e.status=="open" or e.status=="closing" or e.status=="idle":
+
+                if (e.current_floor < floor and e.call_queue[0][0] >= floor and direction=="up") or (e.current_floor > floor and e.call_queue[0][0] <= floor and direction=="down"):
+                    if not(e.call_queue[0][0]==floor):
+                        score += self.TIME_WAIT + 2*self.TIME_DOOR
+                
+                    score += float(abs(e.current_floor - floor)*self.TIME_FLOOR)
+                else:
+                    score += float(abs(e.current_floor - e.call_queue[0][0])*self.TIME_FLOOR) + self.TIME_WAIT + 2*self.TIME_DOOR
+
+                    flag = 0
+                    for i in range(1,len(e.call_queue)):
+                        previous = e.call_queue[i-1][0]
+                        next = e.call_queue[i][0]
+
+                        if (previous < floor and next >= floor and direction=="up") or (e.current_floor > floor and next <= floor and direction=="down"):
+                            if not(floor==next):
+                                score += self.TIME_WAIT + 2*self.TIME_DOOR
+                            score += float(abs(previous - floor)*self.TIME_FLOOR)
+                            flag = 1
+                            break
+                        else:
+                            score += float(abs(previous - next)*self.TIME_FLOOR) + self.TIME_WAIT + 2*self.TIME_DOOR
+
+                    if flag==0:
+                        score += float(abs(e.call_queue[len(e.call_queue)-1][0] - floor)*self.TIME_FLOOR)
+
             else:
-                score += float(abs(e.current_floor - e.dest)*self.TIME_FLOOR)
+                if (e.current_floor < floor and e.dest >= floor and direction=="up") or (e.current_floor > floor and e.dest <= floor and direction=="down"):
+                    if not(e.dest==floor):
+                            score += self.TIME_WAIT + 2*self.TIME_DOOR
+                            
+                    score += float(abs(e.current_floor - floor)*self.TIME_FLOOR)
+                else:
+                    score += float(abs(e.current_floor - e.dest)*self.TIME_FLOOR) + self.TIME_WAIT + 2*self.TIME_DOOR
 
-                flag = 0
-                for i in range(1,len(e.call_queue)):
-                    previous = e.call_queue[i-1][0]
-                    next = e.call_queue[i][0]
+                    flag = 0
+                    for i in range(1,len(e.call_queue)):
+                        previous = e.call_queue[i-1][0]
+                        next = e.call_queue[i][0]
 
-                    if (previous < floor and next >= floor and direction=="up") or (e.current_floor > floor and next <= floor and direction=="down"):
-                        score += float(abs(previous - floor)*self.TIME_FLOOR)
-                        flag = 1
-                        break
-                    else:
-                        score += float(abs(previous - next)*self.TIME_FLOOR)
+                        if (previous < floor and next >= floor and direction=="up") or (e.current_floor > floor and next <= floor and direction=="down"):
+                            if not(floor==next):
+                                score += self.TIME_WAIT + 2*self.TIME_DOOR
+                            score += float(abs(previous - floor)*self.TIME_FLOOR)
+                            flag = 1
+                            break
+                        else:
+                            score += float(abs(previous - next)*self.TIME_FLOOR) + self.TIME_WAIT + 2*self.TIME_DOOR
 
-                if flag==0:
-                    score += float(abs(e.call_queue[len(e.call_queue)-1][0] - floor)*self.TIME_FLOOR)
+                    if flag==0:
+                        score += float(abs(e.call_queue[len(e.call_queue)-1][0] - floor)*self.TIME_FLOOR)
  
 
         print "Elevator" + str(e.name) + ' ----- ' + str(score)

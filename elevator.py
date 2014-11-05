@@ -65,14 +65,20 @@ class Elevator(object):
 
 
         elif self.status == "moving":
-            if (self.current_floor < floor and self.dest > floor and direction=="up") or (self.current_floor > floor and self.dest < floor and direction=="down"):
+            if (self.current_floor < floor and self.dest >= floor and direction=="up") or (self.current_floor > floor and self.dest <= floor and direction=="down"):
+                if self.dest==floor:
+                    self.setElevator(type,floor,direction)
+                    return
                 self.call_queue.insert(0,[floor,direction])
             else:
                 flag = 0
                 for i in range(1,len(self.call_queue)):
                     previous = self.call_queue[i-1][0]
                     next = self.call_queue[i][0]
-                    if (previous < floor and next > floor and direction=="up") or (previous > floor and next < floor and direction=="down"):
+                    if (previous < floor and next >= floor and direction=="up") or (previous > floor and next <= floor and direction=="down"):
+                        if next==floor:
+                            self.setElevator(type,floor,direction)
+                            return
                         flag = 1
                         self.call_queue.insert(i,[floor,direction])
                         break
@@ -85,14 +91,20 @@ class Elevator(object):
             if (len(self.call_queue)==0):
                 self.call_queue.append([floor,direction])
             else:
-                if (self.current_floor < floor and self.call_queue[0][0] > floor and direction=="up") or (self.current_floor > floor and self.call_queue[0][0] < floor and direction=="down"):
+                if (self.current_floor < floor and self.call_queue[0][0] >= floor and direction=="up") or (self.current_floor > floor and self.call_queue[0][0] <= floor and direction=="down"):
+                    if self.call_queue[0][0]==floor:
+                        self.setElevator(type,floor,direction)
+                        return                    
                     self.call_queue.insert(0,[floor,direction])
                 else:
                     flag = 0
                     for i in range(1,len(self.call_queue)):
                         previous = self.call_queue[i-1][0]
                         next = self.call_queue[i][0]
-                        if (previous < floor and next > floor and direction=="up") or (previous > floor and next < floor and direction=="down"):
+                        if (previous < floor and next >= floor and direction=="up") or (previous > floor and next <= floor and direction=="down"):
+                            if next==floor:
+                                self.setElevator(type,floor,direction)
+                                return
                             flag = 1
                             self.call_queue.insert(i,[floor,direction])
                             break
@@ -101,6 +113,10 @@ class Elevator(object):
                         self.call_queue.append([floor,direction])
 
 
+        self.setElevator(type,floor,direction)
+
+
+    def setElevator(self,type,floor,direction):
         if type=="floor_call" and not(floor==self.current_floor):
             if direction=="up":
                 self.building.floor_list[floor].elevator_up = self
@@ -109,7 +125,8 @@ class Elevator(object):
 
         print self.call_queue
 
-        #if self.move_status == "up":
+
+
 
     def update(self,canvas):
 
