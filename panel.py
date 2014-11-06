@@ -82,7 +82,7 @@ class Panel(object):
         self.button_1_id = canvas.create_text(self.BUTTON_START_X + self.TEXT_OFFSET, self.BUTTON_START_Y + self.TEXT_OFFSET, anchor="nw")
         
         canvas.itemconfig(self.button_1_id, text="1")
-        canvas.tag_bind(self.button_1, '<Button-1>', lambda x: self.foo(1,self.flag_list[0]))
+        canvas.tag_bind(self.button_1, '<Button-1>', lambda x: self.onClick(1,self.flag_list[0]))
         
         self.button_list.append(self.button_1)
 #----------------------------------------------------------------------------------------------------    
@@ -91,7 +91,7 @@ class Panel(object):
         self.button_2_id = canvas.create_text(self.BUTTON_START_X + self.BUTTON_GAP_X + self.TEXT_OFFSET, self.BUTTON_START_Y + self.TEXT_OFFSET, anchor="nw")
         
         canvas.itemconfig(self.button_2_id, text="2")
-        canvas.tag_bind(self.button_2, '<Button-1>', lambda x: self.foo(2,self.flag_list[1]))
+        canvas.tag_bind(self.button_2, '<Button-1>', lambda x: self.onClick(2,self.flag_list[1]))
         
         self.button_list.append(self.button_2)
 #----------------------------------------------------------------------------------------------------      
@@ -100,7 +100,7 @@ class Panel(object):
         self.button_3_id = canvas.create_text(self.BUTTON_START_X + 2*self.BUTTON_GAP_X + self.TEXT_OFFSET, self.BUTTON_START_Y + self.TEXT_OFFSET, anchor="nw")
         
         canvas.itemconfig(self.button_3_id, text="3")
-        canvas.tag_bind(self.button_3, '<Button-1>', lambda x: self.foo(3,self.flag_list[2]))
+        canvas.tag_bind(self.button_3, '<Button-1>', lambda x: self.onClick(3,self.flag_list[2]))
   
         self.button_list.append(self.button_3)
 #----------------------------------------------------------------------------------------------------      
@@ -109,7 +109,7 @@ class Panel(object):
         self.button_4_id = canvas.create_text(self.BUTTON_START_X + self.TEXT_OFFSET, self.BUTTON_START_Y + self.BUTTON_GAP_Y + self.TEXT_OFFSET, anchor="nw")
         
         canvas.itemconfig(self.button_4_id, text="4")
-        canvas.tag_bind(self.button_4, '<Button-1>', lambda x: self.foo(4,self.flag_list[3]))
+        canvas.tag_bind(self.button_4, '<Button-1>', lambda x: self.onClick(4,self.flag_list[3]))
         
         self.button_list.append(self.button_4)
 #----------------------------------------------------------------------------------------------------        
@@ -118,7 +118,7 @@ class Panel(object):
         self.button_5_id = canvas.create_text(self.BUTTON_START_X + self.BUTTON_GAP_X + self.TEXT_OFFSET, self.BUTTON_START_Y + self.BUTTON_GAP_Y + self.TEXT_OFFSET, anchor="nw")
 
         canvas.itemconfig(self.button_5_id, text="5")
-        canvas.tag_bind(self.button_5, '<Button-1>', lambda x: self.foo(5,self.flag_list[4]))
+        canvas.tag_bind(self.button_5, '<Button-1>', lambda x: self.onClick(5,self.flag_list[4]))
 
         self.button_list.append(self.button_5)
 #-----------------------------------------------------------------------------------------------------        
@@ -127,7 +127,7 @@ class Panel(object):
         self.button_6_id = canvas.create_text(self.BUTTON_START_X + 2*self.BUTTON_GAP_X + self.TEXT_OFFSET, self.BUTTON_START_Y + self.BUTTON_GAP_Y + self.TEXT_OFFSET, anchor="nw")
         
         canvas.itemconfig(self.button_6_id, text="6")
-        canvas.tag_bind(self.button_6, '<Button-1>', lambda x: self.foo(6,self.flag_list[5]))
+        canvas.tag_bind(self.button_6, '<Button-1>', lambda x: self.onClick(6,self.flag_list[5]))
         
         self.button_list.append(self.button_6)
 #-----------------------------------------------------------------------------------------------------        
@@ -136,7 +136,7 @@ class Panel(object):
         self.button_7_id = canvas.create_text(self.BUTTON_START_X + self.TEXT_OFFSET, self.BUTTON_START_Y + 2*self.BUTTON_GAP_Y + self.TEXT_OFFSET, anchor="nw")
         
         canvas.itemconfig(self.button_7_id, text="7")
-        canvas.tag_bind(self.button_7, '<Button-1>', lambda x: self.foo(7,self.flag_list[6]))
+        canvas.tag_bind(self.button_7, '<Button-1>', lambda x: self.onClick(7,self.flag_list[6]))
         
         self.button_list.append(self.button_7)
 #------------------------------------------------------------------------------------------------------        
@@ -145,7 +145,7 @@ class Panel(object):
         self.button_8_id = canvas.create_text(self.BUTTON_START_X + self.BUTTON_GAP_X + self.TEXT_OFFSET, self.BUTTON_START_Y + 2*self.BUTTON_GAP_Y + self.TEXT_OFFSET, anchor="nw")
         
         canvas.itemconfig(self.button_8_id, text="8")
-        canvas.tag_bind(self.button_8, '<Button-1>', lambda x: self.foo(8,self.flag_list[7]))
+        canvas.tag_bind(self.button_8, '<Button-1>', lambda x: self.onClick(8,self.flag_list[7]))
         
         self.button_list.append(self.button_8)
 #--------------------------------------------------------------------------------------------------------        
@@ -154,7 +154,7 @@ class Panel(object):
         self.button_9_id = canvas.create_text(self.BUTTON_START_X + 2*self.BUTTON_GAP_X + self.TEXT_OFFSET, self.BUTTON_START_Y + 2*self.BUTTON_GAP_Y + self.TEXT_OFFSET, anchor="nw")
         
         canvas.itemconfig(self.button_9_id, text="9")
-        canvas.tag_bind(self.button_9, '<Button-1>', lambda x: self.foo(9,self.flag_list[8]))
+        canvas.tag_bind(self.button_9, '<Button-1>', lambda x: self.onClick(9,self.flag_list[8]))
         self.button_list.append(self.button_9)
 #---------------------------------------------------------------------------------------------------------        
         #BUTTON G
@@ -162,7 +162,7 @@ class Panel(object):
         self.button_10_id = canvas.create_text(self.BUTTON_START_X + self.BUTTON_GAP_X + self.TEXT_OFFSET, self.BUTTON_START_Y + 3*self.BUTTON_GAP_Y + self.TEXT_OFFSET, anchor="nw")
         
         canvas.itemconfig(self.button_10_id, text="G")
-        canvas.tag_bind(self.button_10, '<Button-1>', lambda x: self.foo('G',self.flag_list[9]))
+        canvas.tag_bind(self.button_10, '<Button-1>', lambda x: self.onClick('G',self.flag_list[9]))
         
         self.button_list.append(self.button_10)
 #----------------------------------------------------------------------------------------------------------               
@@ -171,7 +171,7 @@ class Panel(object):
         self.button_11_id = canvas.create_text(self.BUTTON_START_X + self.TEXT_OFFSET, self.BUTTON_START_Y + 3*self.BUTTON_GAP_Y + self.TEXT_OFFSET, anchor="nw")
         
         canvas.itemconfig(self.button_11_id, text="<")
-        canvas.tag_bind(self.button_11, '<Button-1>', lambda x: self.foo('<',self.flag_list[10]))
+        canvas.tag_bind(self.button_11, '<Button-1>', lambda x: self.onClick('<',self.flag_list[10]))
         
         self.button_list.append(self.button_11)
 #----------------------------------------------------------------------------------------------------------
@@ -180,7 +180,7 @@ class Panel(object):
         self.button_12_id = canvas.create_text(self.BUTTON_START_X + 2*self.BUTTON_GAP_X + self.TEXT_OFFSET, self.BUTTON_START_Y + 3*self.BUTTON_GAP_Y + self.TEXT_OFFSET, anchor="nw")
         
         canvas.itemconfig(self.button_12_id, text=">")
-        canvas.tag_bind(self.button_12, '<Button-1>', lambda x: self.foo('>',self.flag_list[11]))
+        canvas.tag_bind(self.button_12, '<Button-1>', lambda x: self.onClick('>',self.flag_list[11]))
         self.button_list.append(self.button_12)
 #-----------------------------------------------------------------------------------------------------------
         #BUTTON +
@@ -188,7 +188,7 @@ class Panel(object):
         self.button_13_id = canvas.create_text(self.BUTTON_START_X + self.TEXT_OFFSET, self.BUTTON_START_Y + self.TEXT_OFFSET - self.BUTTON_GAP_Y, anchor="nw")
         
         canvas.itemconfig(self.button_13_id, text="+")
-        canvas.tag_bind(self.button_13, '<Button-1>', lambda x: self.foo('+',self.flag_list[12]))
+        canvas.tag_bind(self.button_13, '<Button-1>', lambda x: self.onClick('+',self.flag_list[12]))
         
         self.button_list.append(self.button_13)
 #------------------------------------------------------------------------------------------------------------    
@@ -197,7 +197,7 @@ class Panel(object):
         self.button_14_id = canvas.create_text(self.BUTTON_START_X + 2*self.BUTTON_GAP_X + self.TEXT_OFFSET, self.BUTTON_START_Y + self.TEXT_OFFSET - self.BUTTON_GAP_Y, anchor="nw")
         
         canvas.itemconfig(self.button_14_id, text="-")
-        canvas.tag_bind(self.button_14, '<Button-1>', lambda x: self.foo('-',self.flag_list[13]))
+        canvas.tag_bind(self.button_14, '<Button-1>', lambda x: self.onClick('-',self.flag_list[13]))
   
         self.button_list.append(self.button_14)
 #------------------------------------------------------------------------------------------------------------    
@@ -206,11 +206,11 @@ class Panel(object):
         self.button_15_id = canvas.create_text(self.BUTTON_START_X + self.BUTTON_GAP_X + self.TEXT_OFFSET, self.BUTTON_START_Y + self.TEXT_OFFSET - self.BUTTON_GAP_Y, anchor="nw")
         
         canvas.itemconfig(self.button_15_id, text = str(self.elevator.people))
-        #canvas.tag_bind(self.button_15, '<Button-1>', lambda x: self.foo('C',self.flag_list[14]))
+        #canvas.tag_bind(self.button_15, '<Button-1>', lambda x: self.onClick('C',self.flag_list[14]))
         
         self.button_list.append(self.button_15)
 #------------------------------------------------------------------------------------------------------------
-    def foo(self,event,flag):
+    def onClick(self,event,flag):
 
         if flag == False:
             

@@ -111,17 +111,25 @@ class Application:
                 return
 
         score_list = []
+        i=0
         for e in self.elevator_list:
-            score_list.append(self.calculateScore(e,floor,direction))
+            score_list.append([self.calculateScore(e,floor,direction),i])
+            i += 1
 
-        min_score = 10000000
-        min_position = 0
-        for i in range(0,4):
-            if score_list[i] < min_score:
-                min_position = i
-                min_score = score_list[i]
+        score_list.sort(key=lambda x:x[0])
 
-        self.elevator_list[min_position].addFloor(floor,direction,"floor_call")
+        flag = 0
+        for score in score_list:
+            if not(self.elevator_list[score[1]].people>=10):
+                self.elevator_list[score[1]].addFloor(floor,direction,"floor_call")
+                flag = 1
+                break
+
+        if flag==0:
+            if direction=="up":
+                self.floor_list[floor].upTurnOff()
+            else:
+                self.floor_list[floor].downTurnOff()
 
 
         
