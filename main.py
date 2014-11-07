@@ -9,7 +9,7 @@ class Application:
 
         global building
 
-        self.TIME_DOOR = 25
+        self.TIME_DOOR = 5
         self.TIME_FLOOR = 12
         self.TIME_WAIT = 20
 
@@ -125,6 +125,23 @@ class Application:
                 flag = 1
                 break
 
+        # score_list = []
+        # for e in self.elevator_list:
+        #     score_list.append(self.calculateScore(e,floor,direction))
+
+        # minScore = 1000000
+        # selected_elevator = None
+        # i=0
+        # for score in score_list:
+        #     if score<minScore:
+        #         selected_elevator = self.elevator_list[i]
+        #         minScore = score
+
+        #     i += 1
+
+        # selected_elevator.addFloor(floor,direction,"floor_call")
+
+
         if flag==0:
             if direction=="up":
                 self.floor_list[floor].upTurnOff()
@@ -183,8 +200,8 @@ class Application:
 
             else:
                 if (e.current_floor < floor and e.dest >= floor and direction=="up") or (e.current_floor > floor and e.dest <= floor and direction=="down"):
-                    if not(e.dest==floor):
-                            score += self.TIME_WAIT + 2*self.TIME_DOOR
+                    # if not(e.dest==floor):
+                    #         score += self.TIME_WAIT + 2*self.TIME_DOOR
                             
                     score += float(abs(e.current_floor - floor)*self.TIME_FLOOR)
                 else:

@@ -203,7 +203,7 @@ class Elevator(object):
         if self.door_status == 50:
             self.status = "open"
         else:
-            self.door_status += 2
+            self.door_status += 10
             canvas.coords(self.door,self.x,self.y,self.x+self.door_status,self.y+self.ELEVATOR_HEIGHT)
 
     def keepDoorOpen(self):
@@ -219,7 +219,7 @@ class Elevator(object):
             self.status = "idle"
 
         else:
-            self.door_status -= 2
+            self.door_status -= 10
             canvas.coords(self.door,self.x,self.y,self.x+self.door_status,self.y+self.ELEVATOR_HEIGHT)
 
 
